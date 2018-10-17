@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args ) {
+
         if (args.length != 5) {
             System.out.println("Arg.lengths != 5, == " + args.length);
             return;
@@ -24,18 +25,18 @@ public class Main {
             System.out.println(messageError);
             return;
         }
-//        if (swarmSize < 0 || numIterations < 0 || numDimensions < 1) {
-//            System.out.println(messageError);
-//            return;
-//        }
-//        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra"))) {
-//            System.out.println(messageError);
-//            return;
-//        }
-//        if (! (functionName.equals("sp") || functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras"))) {
-//            System.out.println(messageError);
-//            return;
-//        }
+        if (swarmSize < 0 || numIterations < 0 || numDimensions < 1) {
+            System.out.println(messageError);
+            return;
+        }
+        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra"))) {
+            System.out.println(messageError);
+            return;
+        }
+        if (! (functionName.equals("sp") || functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras"))) {
+            System.out.println(messageError);
+            return;
+        }
         BasicPSO pso = new BasicPSO(topology, swarmSize, numIterations, functionName, numDimensions);
         pso.setup();
         for (int i = 0; i < numIterations; i++) {
@@ -43,4 +44,96 @@ public class Main {
         }
 
     }
+
+    public static void testRastrigin() {
+        // returns the value of the Rastrigin Function at point (x, y)
+        //   minimum is 0.0, which occurs at (0.0,...,0.0)
+        double newVal = 1.0;
+        System.out.println("newval: " + newVal + " expected answer: 3");
+        double[] dimensionVals = new double[3];
+        for (int i = 0; i < dimensionVals.length; i++) {
+            dimensionVals[i] = newVal;
+        }
+
+        double counter = 0;
+        for (double i : dimensionVals) {
+            counter += Math.pow(i, 2) - (10 * Math.cos(2 * Math.PI * i));
+        }
+        double ans = 10 * dimensionVals.length + counter;
+        System.out.println("answer: " + ans);
+
+
+    }
+
+    public static void testRosenbrock() {
+    // returns the value of the Rosenbrock Function at point (x, y)
+    //   minimum is 0.0, which occurs at (1.0,...,1.0)
+        double newVal = .5;
+        System.out.println("newval: " + newVal + " expected answer: 13");
+        double[] dimensionVals = new double[3];
+        for (int i = 0; i < dimensionVals.length; i++) {
+            dimensionVals[i] = newVal;
+        }
+
+        double counter = 0;
+        for (int i = 0; i < dimensionVals.length - 1; i++) {
+            double leftSide = 100 * Math.pow(dimensionVals[i + 1] - Math.pow(dimensionVals[i], 2), 2);
+            double rightSide = Math.pow(dimensionVals[i] - 1, 2);
+            counter = counter + leftSide + rightSide;
+            System.out.println("New counter: " + counter);
+        }
+        System.out.println("Rosenbrock counter = " + counter);
+
+    }
+
+    // returns the value of the Ackley Function at point (x, y)
+    //   minimum is 0.0, which occurs at (0.0,...,0.0)
+    private static void testAckley() {
+        double newVal = (Math.PI / 2.0);
+        System.out.println("Newval: " + newVal + " expected ans: " + 7.04);
+
+        double[] dimensionVals = new double[3];
+        for (int i = 0; i < dimensionVals.length; i++) {
+            dimensionVals[i] = newVal;
+        }
+
+
+        double a = 20.0;
+        double b = .2;
+        double c = 2 * Math.PI;
+
+        double firstExp = 0;
+        double secondExp = 0;
+        for (double i : dimensionVals) {
+            firstExp += Math.pow(i, 2);
+            secondExp += Math.cos(c * i);
+        }
+
+        firstExp = firstExp * (1.0 / dimensionVals.length);
+        firstExp = Math.sqrt(firstExp);
+        firstExp = -b * firstExp;
+
+
+
+        secondExp = secondExp * (1.0 / dimensionVals.length);
+
+
+        double ans = (-a * Math.exp(firstExp)) - Math.exp(secondExp) + a + Math.E;
+
+//        double firstCounter = 0;
+//        double secondCounter = 0;
+//        for (double i : dimensionVals) {
+//            firstCounter += Math.pow(i, 2);
+//            secondCounter += Math.cos(2 * Math.PI * i);
+//        }
+//        double firstExp = -b * Math.sqrt((1 / dimensionVals.length) * firstCounter);
+//        double secondExp = (1 / dimensionVals.length) * secondCounter;
+
+//        double ans = -a * Math.exp(firstExp) - Math.exp(secondExp) + a + Math.E;
+
+        System.out.println("Answer: " + ans);
+
+    }
+
+
 }

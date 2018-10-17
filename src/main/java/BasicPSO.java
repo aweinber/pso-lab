@@ -272,10 +272,6 @@ public class BasicPSO {
   // returns the value of the specified function for point (x, y)
   public double eval(int functionNum, double[] x) {
 
-    //for (int d = 0; d < numDimensions; d++) {
-    //  x[d] -= FUNCTION_SHIFT;
-    //}
-
     double retValue = 0.0;
 
     if (functionNum == SPHERE_FUNCTION_NUM) {
@@ -315,24 +311,25 @@ public class BasicPSO {
 
     double counter = 0;
     for (int i = 0; i < dimensionVals.length - 1; i++) {
-      counter += 100 * Math.pow((dimensionVals[i + 1] - dimensionVals[i]), 2) +
-              Math.pow((dimensionVals[i] - 1), 2);
+      double leftSide = 100 * Math.pow(dimensionVals[i + 1] - Math.pow(dimensionVals[i], 2), 2);
+      double rightSide = Math.pow(dimensionVals[i] - 1, 2);
+      counter = counter + leftSide + rightSide;
     }
     return counter;
   }
 
 
-
-
+  //TODO: function doesn't seem to be working, shouldn't be at -19
   // returns the value of the Rastrigin Function at point (x, y)
   //   minimum is 0.0, which occurs at (0.0,...,0.0)
   public double evalRastrigin (double[] dimensionVals) {
+
 
     double counter = 0;
     for (double i : dimensionVals) {
       counter += Math.pow(i, 2) - (10 * Math.cos(2 * Math.PI * i));
     }
-    return counter;
+    return (10 * dimensionVals.length) + counter;
 
   }
 
@@ -342,15 +339,28 @@ public class BasicPSO {
   // returns the value of the Ackley Function at point (x, y)
   //   minimum is 0.0, which occurs at (0.0,...,0.0)
   private double evalAckley (double[] dimensionVals) {
-    double firstCounter = 0;
-    double secondCounter = 0;
+
+    double a = 20.0;
+    double b = .2;
+    double c = 2 * Math.PI;
+
+    double firstExp = 0;
+    double secondExp = 0;
     for (double i : dimensionVals) {
-      firstCounter += Math.pow(i, 2);
-      secondCounter += Math.cos(2 * Math.PI * i);
+      firstExp += Math.pow(i, 2);
+      secondExp += Math.cos(c * i);
     }
-    double firstExp = -.2 * Math.sqrt((1 / dimensionVals.length) * firstCounter);
-    double secondExp = (1 / dimensionVals.length) * secondCounter;
-    return 20 * Math.exp(firstExp) - Math.exp(secondExp) + 20 + Math.E;
+
+    firstExp = firstExp * (1.0 / dimensionVals.length);
+    firstExp = Math.sqrt(firstExp);
+    firstExp = -b * firstExp;
+
+
+
+    secondExp = secondExp * (1.0 / dimensionVals.length);
+
+
+    return (-a * Math.exp(firstExp)) - Math.exp(secondExp) + a + Math.E;
 
   }
 
