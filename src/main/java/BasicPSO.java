@@ -107,7 +107,7 @@ public class BasicPSO {
 
 
   BasicPSO(String topology, int swarmSize, int numIterations, String function, int numDimensions) {
-    Swarm s = new Swarm(String Topology, String function, int swarmSize, int numDimensions);
+    Swarm s = new Swarm(topology, function, swarmSize, numDimensions);
     this.maxIterations = numIterations;
   }
 

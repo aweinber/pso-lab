@@ -31,7 +31,7 @@ public class Neighborhood {
     return nBestValue;
   }
 
-  public double[] getNBestLoc(){
+  public double[] getNBestLocation(){
     return nBestLoc;
   }
 

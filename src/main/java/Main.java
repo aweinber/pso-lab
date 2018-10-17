@@ -20,10 +20,9 @@ public class Main {
         numIterations = Integer.parseInt(args[2]);
         functionName = args[3];
         numDimensions = Integer.parseInt(args[4]);
-
-        BasicPSO pso = new BasicPSO(topology, swarmSize, numIterations, functionName, numDimensions);
+        Swarm s = new Swarm(topology, functionName, swarmSize, numDimensions);
         for (int i = 0; i < numIterations; i++) {
-            pso.draw();
+            s.move();
         }
 
     }
