@@ -1,14 +1,14 @@
 public class Main {
     public static void main(String[] args ) {
 
-        String messageError = "Topology must be a string gl/ri/vn/ra\n " +
+        String errorMessage = "Topology must be a string gl/ri/vn/ra\n " +
                 "Swarm size must an integer in range [0,]\n " +
                 "Num iterations must be an integer in range [0, ]\n " +
                 "Function to optimize on must be a string rok/ack/ras\n " +
                 "Dimensionality must be an integer in range [1, ]";
 
         if ( ! areValidArgs(args) ) {
-            System.out.println(messageError);
+            System.out.println(errorMessage);
             return;
         }
 

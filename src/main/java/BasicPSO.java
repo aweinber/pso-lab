@@ -319,7 +319,6 @@ public class BasicPSO {
   }
 
 
-  //TODO: function doesn't seem to be working, shouldn't be at -19
   // returns the value of the Rastrigin Function at point (x, y)
   //   minimum is 0.0, which occurs at (0.0,...,0.0)
   public double evalRastrigin (double[] dimensionVals) {
