@@ -16,13 +16,6 @@ public class BasicPSO {
   // ****************  GRAPHICS  ******************
   // window dimensions
   private final int WINDOW_WIDTH = 1000;
-  private final int WINDOW_HEIGHT = WINDOW_WIDTH;
-
-  // make background black
-  private final int BACKGROUND_ALPHA = 0;
-
-  // adjust for personal preference
-  private final int PARTICLE_SIZE = 10;
 
 
   // ****************  MISCELLANEOUS    ******************
@@ -33,19 +26,6 @@ public class BasicPSO {
 
   // ****************  PSO  ******************
 
-  // x and y positions for each particle
-  private double[][] loc;
-
-  // x and y velocities for each particle
-  private double[][] vel;
-
-  // pBest positions and values for each particle
-  private double[][] pBestLoc;
-  private double[] pBestValue;
-
-  // gbest position and value
-  private double[] gBestLoc;
-  private double gBestValue;
 
   // initial speed range
   private final double MIN_INIT_SPEED = -3.0;
@@ -71,6 +51,21 @@ public class BasicPSO {
   // number of dimensions
   private int numDimensions;
 
+
+//  // x and y positions for each particle
+  private double[][] loc;
+
+//  // x and y velocities for each particle
+  private double[][] vel;
+
+  // pBest positions and values for each particle
+  private double[][] pBestLoc = new double[numParticles][numDimensions];
+  private double[] pBestValue;
+
+  // gBest position and value
+  private double[] gBestLoc = new double[numDimensions];
+  private double gBestValue;
+
   // personal best acceleration coefficient
   private double phi1 = 2.05;
   // global best acceleration coefficient
@@ -78,7 +73,7 @@ public class BasicPSO {
 
   // constriction factor
   private double phi = phi1 + phi2;
-  public   double constrictionFactor = 0.7298;
+  private double constrictionFactor = 0.7298;
 
   //topology types
   private final int GLOBAL = 1;
@@ -98,7 +93,6 @@ public class BasicPSO {
   public int testFunction;
 
   // for controlling termination
-  private int iterationNum = 0;
   private int maxIterations;
 
 
@@ -139,9 +133,17 @@ public class BasicPSO {
 
   }
 
+  public void execute() {
+    this.setup();
+    for (int i = 0; i < maxIterations; i++) {
+      this.draw();
+      System.out.println("iteration " + i + "  gbest value = " + gBestValue);
+    }
+  }
+
+
   // initialize the simulation
   public void setup() {
-
 
 
     // create arrays for particle positions
@@ -151,8 +153,8 @@ public class BasicPSO {
     vel = new double[numParticles][numDimensions];
 
     // create arrays for particle personal bests
-    pBestValue = new double[numParticles];
     pBestLoc = new double[numParticles][numDimensions];
+    pBestValue = new double[numParticles];
 
     // set gbest value very high so it will be replaced in the loop
     // that creates the particles
@@ -179,6 +181,7 @@ public class BasicPSO {
       pBestLoc[p] = loc[p];
       pBestValue[p] = currValue;
 
+      //TODO: shouldn't we be checking that currValue > gBest, not less than
       // ****** check for new global best and store, if necessary,
       // ****** in the variables provided
       if (currValue < gBestValue) {
@@ -192,14 +195,6 @@ public class BasicPSO {
 
   // the "loop forever" method in Processing
   public void draw() {
-
-    ++iterationNum;
-
-    // a kludgy way to stop, but keep the window visible;
-    // it just stops for a "long" time, defined by the constant LONG_DELAY
-    if (iterationNum > maxIterations) {
-      System.out.println("DONE!!");
-    }
 
     // update all the particles
     for (int p = 0 ; p < numParticles ; p++) {
@@ -226,6 +221,7 @@ public class BasicPSO {
       // ****** find the value of the new position
       double currValue = eval(testFunction, loc[p]);
 
+      //TODO: this is saying if curr is less than pBest -- should be more, no?
       // ****** update personal best and global best, if necessary
       if (currValue < pBestValue[p]) {
         pBestValue[p] = currValue;
@@ -238,7 +234,6 @@ public class BasicPSO {
       }
     }
 
-     System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
   }
 
 
@@ -260,8 +255,17 @@ public class BasicPSO {
 
   // returns the distance between (x1, y1) and (x2, y2)
   public double distance (double x1, double y1, double x2, double y2) {
-
     return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+  }
+
+
+  //returns the distance between two multidimensional points
+  public double distance(double[] x, double[] y) {
+    double squareCounter = 0.0;
+    for (int i = 0; i < x.length; i++) {
+      squareCounter += Math.pow(x[i] - y[i], 2.0);
+    }
+    return Math.sqrt(squareCounter);
   }
 
 

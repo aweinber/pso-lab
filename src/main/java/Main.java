@@ -27,14 +27,16 @@ public class Main {
             System.out.println(messageError);
             return;
         }
-        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra")) {
+        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra"))) {
             System.out.println(messageError);
             return;
         }
-        if (! (functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras")) {
+        if (! (functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras"))) {
             System.out.println(messageError);
             return;
         }
         BasicPSO pso = new BasicPSO(topology, swarmSize, numIterations, functionName, numDimensions);
+        pso.execute();
+
     }
 }
