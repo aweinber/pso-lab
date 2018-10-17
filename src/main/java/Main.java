@@ -22,7 +22,6 @@ public class Main {
         numDimensions = Integer.parseInt(args[4]);
 
         BasicPSO pso = new BasicPSO(topology, swarmSize, numIterations, functionName, numDimensions);
-        pso.setup();
         for (int i = 0; i < numIterations; i++) {
             pso.draw();
         }

@@ -12,8 +12,8 @@ public class Particle {
     public Particle(String function, int numDimensions){
       this.function = function;
       this.numDimensions = numDimensions;
-      this.location = initializeLocation(String function, int numDimensions)
-      this.vector = initializeVector(String function, int numDimensions)
+      this.location = initializeLocation(function, numDimensions);
+      this.vector = initializeVector(function, numDimensions);
     }
 
     public Particle(double[] location, double[] vector, double pBest, double[] pBestLocation) {
@@ -104,7 +104,7 @@ public class Particle {
         // ****** update the position
         location[d] += velocity[d];
       }
-      eval()
+      eval();
     }
 
 
