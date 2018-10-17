@@ -134,16 +134,16 @@ public class BasicPSO {
   }
 
   public void execute() {
-    this.setup();
+    this.initialize();
     for (int i = 0; i < maxIterations; i++) {
-      this.draw();
+      this.iterateOnce();
       System.out.println("iteration " + i + "  gbest value = " + gBestValue);
     }
   }
 
 
   // initialize the simulation
-  public void setup() {
+  public void initialize() {
 
 
     // create arrays for particle positions
@@ -194,7 +194,7 @@ public class BasicPSO {
 
 
   // the "loop forever" method in Processing
-  public void draw() {
+  public void iterateOnce() {
 
     // update all the particles
     for (int p = 0 ; p < numParticles ; p++) {
