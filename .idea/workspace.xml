@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a736ae6f-2c09-4ada-9451-353f0f04e451" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BasicPSO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BasicPSO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/pso-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pso-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,8 +27,8 @@
       <file leaf-file-name="BasicPSO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/BasicPSO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="331" column="4" selection-start-line="331" selection-start-column="4" selection-end-line="331" selection-end-column="4" />
+            <state relative-caret-position="336">
+              <caret line="286" column="29" selection-start-line="286" selection-start-column="29" selection-end-line="286" selection-end-column="29" />
               <folding>
                 <element signature="e#0#8802#0" expanded="true" />
               </folding>
@@ -240,7 +234,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5369000" />
+    <option name="totallyTimeSpent" value="5533000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
@@ -409,8 +403,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/BasicPSO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="331" column="4" selection-start-line="331" selection-start-column="4" selection-end-line="331" selection-end-column="4" />
+        <state relative-caret-position="336">
+          <caret line="286" column="29" selection-start-line="286" selection-start-column="29" selection-end-line="286" selection-end-column="29" />
           <folding>
             <element signature="e#0#8802#0" expanded="true" />
           </folding>

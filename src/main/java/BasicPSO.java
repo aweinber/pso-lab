@@ -266,7 +266,7 @@ public class BasicPSO {
 
 
 
-  // returns the value of the specified function for point (x, y)
+  // returns the value of the specified function for point [x1, x2, ..., xn]
   public double eval(int functionNum, double[] x) {
     for (int d = 0; d < numDimensions; d++) {
       x[d] -= FUNCTION_SHIFT;
@@ -278,13 +278,13 @@ public class BasicPSO {
       retValue = evalSphere(x);
     }
     else if (functionNum == ROSENBROCK_FUNCTION_NUM) {
-      retValue = evalRosenbrock(x[0], 0);
+      retValue = evalRosenbrock(x);
     }
     else if (functionNum == RASTRIGIN_FUNCTION_NUM) {
-      retValue = evalRastrigin(x[0], 0);
+      retValue = evalRastrigin(x);
     }
     else if (functionNum == ACKLEY_FUNCTION_NUM) {
-      retValue = evalAckley(x[0], 0);
+      retValue = evalAckley(x);
     }
 
     return retValue;
