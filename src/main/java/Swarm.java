@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Swarm {
@@ -6,7 +7,7 @@ public class Swarm {
     private double[] gBestLocation;
 
     private Particle[] particles;
-    private ArrayList<Neighborhood> neighborhoods;
+    private Hashtable<Particle, Neighborhood> neighborhoodDict;
 
     //topology types
     private final int GLOBAL = 1;
@@ -14,38 +15,54 @@ public class Swarm {
     private final int VON_NEUMANN = 3;
     private final int RANDOM = 4;
 
-    public int topologyType;
+    public int topology;
 
 
-    public Swarm(Particle[] particles, ArrayList<Neighborhood> neighborhoods) {
-        this.particles = particles;
-        this.neighborhoods = neighborhoods;
-    }
-
-
-    public void createNeighborhoods() {
-        if (topology == GLOBAL) {
-            createGlobalNeighborhood();
-        }
-        else if (topology == RING) {
-            createRingNeighborhoods();
-        }
-        else if (topology == VON_NEUMANN) {
-            createVonNeumannNeighborhoods();
-        }
-        else if (topology == RANDOM) {
-            createRandomNeighborhoods();
-        }
-    }
 
     public void createGlobalNeighborhood() {
         Neighborhood neighborhood = new Neighborhood(this.particles);
-        this.neighborhoods = new ArrayList<Neighborhood>();
-        this.neighborhoods.add(neighborhood);
+        for (Particle p : this.particles) {
+            neighborhoodDict[p] = this.particles;
+        }
     }
 
-    public void createRandomNeighborhoods() {
 
+    public Neighborhood[] createRandomNeighborhoods(int size) {
+        Neighborhood[] neighborhoods = new Neighborhood[this.particles.length];
+        Neighborhood newN;
+        for (int i = 0; i < neighborhoods.length; i++) {
+            newN = createRandomNeighborhood(particles[i], size);
+            neighborhoods[i] = newN;
+        }
+        return neighborhoods;
+    }
+
+    public Neighborhood createRandomNeighborhood(Particle p, int size) {
+
+        Particle[] neighbors = new Particle[size];
+        neighbors[0] = p;
+
+        HashSet<Particle> remaining = new HashSet<Particle>(Arrays.asList(this.particles));
+        remaining.remove(p);
+
+        Particle newP;
+        for (int i = 1; i < size; i++) {
+            newP = selectRandomParticle(remaining);
+            neighbors[i] = newP;
+            remaining.remove(newP);
+        }
+        return new Neighborhood(neighbors);
+
+    }
+
+    public Particle selectRandomParticle(HashSet<Particle> remaining) {
+
+        while (true) {
+            int randomIndex = (int) (Math.random() * particles.length);
+            if (! remaining.contains(particles[randomIndex])) {
+                return particles[randomIndex];
+            }
+        }
     }
 
 
@@ -102,10 +119,10 @@ public class Swarm {
                 int c = j - 1; //below
                 int d = i - 1; //left
 
-                if(a < 0) a = particles.length - 1; //if top row, set new y index to bottom
-                if(b > particles.length - 1) b = 0; //if rightmost, set new x index to left
-                if(c > particles.length - 1) c = 0; //if bottom row, set new y index to top
-                if(d < 0) d = particles.length - 1; //if leftmost, set new x index to right
+                if (a < 0) a = particles.length - 1; //if top row, set new y index to bottom
+                if (b > particles.length - 1) b = 0; //if rightmost, set new x index to left
+                if (c > particles.length - 1) c = 0; //if bottom row, set new y index to top
+                if (d < 0) d = particles.length - 1; //if leftmost, set new x index to right
 
                 neighbors[1] = vnParticles[x][a]; //above
                 neighbors[2] = vnParticles[b][j]; //right
@@ -114,7 +131,6 @@ public class Swarm {
                 neighborhoods.add(new Neighborhood(neighbors));
             }
         }
-
     }
 
 
@@ -134,4 +150,23 @@ public class Swarm {
         return gBest;
    }
 
+    int interationNum = 0;
+    public void move(){
+      iterationNum++;
+      Random rand = new Random;
+      for(int i = 0; i < particles.length; i++){
+        particles[i].move(neighborhoods.get(i).getNBestValue(), neighborhoods.get(i).getNBestLoc());
+        if(topology == RANDOM && rand.nextDouble() < 0.2){
+            neighbors[p] = createRandomNeighborhood(particle[p]);
+        }
+      }
+      for(int i = 0; i < particles.length; i++){
+        neighborhors[p].updateNBest();
+        if(neighborhood.[p].getNBest() < gBestValue){
+          gBestValue = neighborhood.[p].getNBestValue();
+          gBestLocation = neighborhood.[p].getNBestLocation();
+        }
+      }
+      System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
+    }
 }
