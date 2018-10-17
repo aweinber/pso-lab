@@ -107,145 +107,15 @@ public class BasicPSO {
 
 
   BasicPSO(String topology, int swarmSize, int numIterations, String function, int numDimensions) {
-    //set topology type
-    if (topology.equals("gl")) {
-      this.topologyType = GLOBAL;
-    }
-    if (topology.equals("ri")) {
-      this.topologyType = RING;
-    }
-    if (topology.equals("vn")) {
-      this.topologyType = VON_NEUMANN;
-    }
-    if (topology.equals("ra")) {
-      this.topologyType = RANDOM;
-    }
-    this.numParticles = swarmSize;
-    this.numDimensions = numDimensions;
-    //set function num
-    if (function.equals("sp")) {
-      this.testFunction = SPHERE_FUNCTION_NUM;
-    }
-    if (function.equals("rok")) {
-      this.testFunction = ROSENBROCK_FUNCTION_NUM;
-    }
-    if (function.equals("ack")) {
-      this.testFunction = ACKLEY_FUNCTION_NUM;
-    }
-    if (function.equals("ras")) {
-      this.testFunction = RASTRIGIN_FUNCTION_NUM;
-    }
+    Swarm s = new Swarm(String Topology, String function, int swarmSize, int numDimensions);
     this.maxIterations = numIterations;
   }
 
 
-  // initialize the simulation
-  public void setup() {
-
-
-
-    // create arrays for particle positions
-    loc = new double[numParticles][numDimensions];
-
-    // create arrays for particle velocities
-    vel = new double[numParticles][numDimensions];
-
-    // create arrays for particle personal bests
-    pBestValue = new double[numParticles];
-    pBestLoc = new double[numParticles][numDimensions];
-
-    neighborhoods = new Neighborhood[numParticles];
-
-    // set gbest value very high so it will be replaced in the loop
-    // that creates the particles
-    gBestValue = Double.MAX_VALUE;
-    gBestLoc = new double[numDimensions];
-
-    // create particles and calculate initial personal bests;
-    // find the initial global best
-
-    for (int p = 0 ; p < numParticles; p++) {
-      for(int d = 0; d < numDimensions; d++) {
-
-
-        // set the coordinates and get the value of the objective function
-        // at that point
-        loc[p][d] = 15 + (30 - 15) * rand.nextDouble();
-
-        // initialize velocities
-        vel[p][d] = MIN_INIT_SPEED + rand.nextDouble() * (MAX_INIT_SPEED - MIN_INIT_SPEED);
-      }
-
-      // initial value
-      double currValue = eval(testFunction, loc[p]);
-
-      // ****** store initial personal best in the pBest arrays provided
-      pBestLoc[p] = loc[p].clone();
-      pBestValue[p] = currValue;
-
-      // ****** check for new global best and store, if necessary,
-      // ****** in the variables provided
-      if (currValue < gBestValue) {
-        gBestLoc = loc[p].clone();
-        gBestValue = currValue;
-
-      }
-    }
-    for (int p = 0; p < numParticles; p++){
-      neighborhoods[p] = new Neighborhood(this.topologyType, loc, pBestValue, pBestLoc, p);
-    }
-  }
-
 
   // the "loop forever" method in Processing
   public void draw() {
-
-    iterationNum++;
-
-    for (int p = 0; p < numParticles; p++){
-      neighborhoods[p].updateNBest(loc, pBestValue, pBestLoc);
-    }
-
-    // update all the particles
-    for (int p = 0 ; p < numParticles ; p++) {
-
-      for (int d = 0; d < numDimensions; d++) {
-        // ****** compute the acceleration due to personal best
-        double PBestAttract = pBestLoc[p][d] - loc[p][d];
-
-        PBestAttract *= rand.nextDouble() * phi1;
-
-        // ****** compute the acceleration due to global best
-        double GBestAttract = neighborhoods[p].getNBestLoc()[d] - loc[p][d];
-
-        GBestAttract *= rand.nextDouble() * phi2;
-
-        // ****** constrict the new velocity and reset the current velocity
-        vel[p][d] += PBestAttract + GBestAttract;
-
-        vel[p][d] *= constrictionFactor;
-
-        // ****** update the position
-        loc[p][d] += vel[p][d];
-      }
-
-      // ****** find the value of the new position
-      double currValue = eval(testFunction, loc[p]);
-
-
-      // ****** update personal best and global best, if necessary
-      if (currValue < pBestValue[p]) {
-        pBestValue[p] = currValue;
-        pBestLoc[p] = loc[p].clone();
-      }
-    }
-    for(int i = 0; i < neighborhoods.length; i++){
-      if(neighborhoods[i].getNBest()<gBestValue){
-        gBestValue = neighborhoods[i].getNBest();
-        gBestLoc = neighborhoods[i].getNBestLoc().clone();
-      }
-    }
-     System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
+    s.move();
   }
 
 
