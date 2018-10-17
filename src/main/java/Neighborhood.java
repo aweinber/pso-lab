@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Neighborhood {
   public Particle[] neighbors;
-  private double nBestValue;
-  private double[] nBestLoc;
+  public double nBestValue;
+  public double[] nBestLoc;
 
   Neighborhood(Particle[] neighbors){
     this.neighbors = neighbors;

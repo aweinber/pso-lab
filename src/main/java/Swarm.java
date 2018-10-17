@@ -2,7 +2,9 @@ import java.util.*;
 
 public class Swarm {
 
-    private int topology;
+    private double gBest;
+    private double[] gBestLocation;
+
     private Particle[] particles;
     private ArrayList<Neighborhood> neighborhoods;
 
@@ -49,25 +51,28 @@ public class Swarm {
 
     public void createRingNeighborhoods() {
 
+
         for (int i = 1; i < particles[0].location.length - 1; i++) {
             Particle[] neighbors = new Particle[3];
             neighbors[0] = this.particles[i - 1];
             neighbors[1] = this.particles[i];
             neighbors[2] = this.particles[i + 1];
-            Neighborhood neighborhood = new Neighborhood(neighbors);
-            neighborhoods.add(neighborhood);
+            neighborhoods.add(new Neighborhood(neighbors));
         }
+
+        //[a, b, c, d, e, f, g] => [g, a, b]
         Particle[] firstLooped = new Particle[3];
         firstLooped[0] = this.particles[this.particles.length - 1];
         firstLooped[1] = this.particles[0];
         firstLooped[2] = this.particles[1];
-        Neighborhood neighborhood = new Neighborhood(firstLooped);
-        neighborhoods.add(neighborhood);
+        neighborhoods.add(new Neighborhood(firstLooped));
 
-
+        //[a, b, c, d, e, f, g] => [f, g, a]
         Particle[] secondLooped = new Particle[3];
         secondLooped[0] = this.particles[this.particles.length - 2];
         secondLooped[1] = this.particles[this.particles.length - 1];
+        secondLooped[2] = this.particles[0];
+        neighborhoods.add(new Neighborhood(secondLooped));
 
 
     }
@@ -75,31 +80,58 @@ public class Swarm {
 
     public void createVonNeumannNeighborhoods() {
 
-    }
+        int numRows = (int) Math.sqrt(particles.length);
+        Particle[][] vnParticles = new Particle[numRows][numRows];
 
-
-    private Particle findNearestParticle(Particle particle, HashSet<Particle> remainingP) {
-        HashSet<Particle> tempRemaining = remainingP;
-        double minDist = 100; //TODO: size of 'board'
-        Particle nearest = null;
-        for (Particle p : tempRemaining) {
-            double dist = calculateDistance(particle, p);
-            if (dist < minDist) {
-                minDist = dist;
-                nearest = p;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numRows; j++) {
+                vnParticles[i][j] = particles[i + (numRows * j)];
             }
-            tempRemaining.remove(p);
         }
 
-        return nearest;
+
+        for (int i = 0; i < particles.length; i++) {
+            for (int j = 0; j < particles.length; j++) {
+                Particle[] neighbors = new Particle[5];
+                int x = i;
+                int y = j;
+                neighbors[0] = vnParticles[x][y];
+
+                int a = j + 1; //above
+                int b = i + 1; //right
+                int c = j - 1; //below
+                int d = i - 1; //left
+
+                if(a < 0) a = particles.length - 1; //if top row, set new y index to bottom
+                if(b > particles.length - 1) b = 0; //if rightmost, set new x index to left
+                if(c > particles.length - 1) c = 0; //if bottom row, set new y index to top
+                if(d < 0) d = particles.length - 1; //if leftmost, set new x index to right
+
+                neighbors[1] = vnParticles[x][a]; //above
+                neighbors[2] = vnParticles[b][j]; //right
+                neighbors[3] = vnParticles[x][c]; //below
+                neighbors[4] = vnParticles[d][y]; //left
+                neighborhoods.add(new Neighborhood(neighbors));
+            }
+        }
+
     }
 
-    private double calculateDistance(Particle fromP, Particle toP) {
-        double counter = 0.0;
-        for (int dim = 0; dim < fromP.location.length; dim++) {
-            counter += Math.pow(fromP.location[dim] - toP.location[dim], 2);
+
+   public double calculateNewGlobalBest() {
+        double gBest = neighborhoods.get(0).neighbors[0].pBest; //minimum it could be
+        double gBestLocation[] = neighborhoods.get(0).neighbors[0].pBestLocation;
+
+        for (Neighborhood neighborhood : neighborhoods) {
+            neighborhood.updateNBest();
+            if (neighborhood.nBestValue < gBest) {
+                gBest = neighborhood.nBestValue;
+                gBestLocation = neighborhood.nBestLoc;
+            }
         }
-        return Math.sqrt(counter);
-    }
+        this.gBest = gBest;
+        this.gBestLocation = gBestLocation;
+        return gBest;
+   }
 
 }
