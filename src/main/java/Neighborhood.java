@@ -18,19 +18,6 @@ public class Neighborhood {
     }
   }
 
-  Neighborhood(int topology, double[][] swarmLoc, double[] swarmPBest, double[][] swarmPBestLoc, int p){
-    TOPOLOGY = topology;
-    nBest = swarmPBest[0];
-    neighborIndex = new int[swarmPBest.length];
-    for(int i = 0; i < swarmPBest.length; i++){
-      neighborIndex[i] = i;
-      if(swarmPBest[i] < nBest){
-        nBest = swarmPBest[i];
-        nBestLoc = swarmPBestLoc[i].clone();
-      }
-    }
-  }
-
   public void updateNBest(){
     for(int i = 0; i < neighbors.length; i++){
       if(neighbors[i].getPBestValue() < nBestValue){
