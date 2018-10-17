@@ -49,8 +49,26 @@ public class Swarm {
     }
 
 
-    private Particle findNearestParticle(Particle p, HashSet<Particle> remainingP) {
+    private Particle findNearestParticle(Particle particle, HashSet<Particle> remainingP) {
+        double minDist = 100; //TODO: size of 'board'
+        Particle nearest;
+        for (Particle p : remainingP) {
+            double dist = calculateDistance(particle, p);
+            if (dist < minDist) {
+                minDist = dist;
+                nearest = p;
+            }
+            remainingP.remove(p);
+        }
+        return nearest;
+    }
 
+    private double calculateDistance(Particle fromP, Particle toP) {
+        double counter = 0.0;
+        for (int dim = 0; dim < fromP.location.length; dim++) {
+            counter += Math.pow(fromP.location[dim] - toP.location[dim], 2);
+        }
+        return Math.sqrt(counter);
     }
 
 }
