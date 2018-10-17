@@ -3,16 +3,20 @@ import java.util.Arrays;
 
 
 public class Neighborhood {
-  private int[] neighborIndex;
-  private double nBest;
+  private Paricle[] neighbors;
+  private double nBestValue;
   private double[] nBestLoc;
 
-  private final int GLOBAL = 1;
-  private final int RING = 2;
-  private final int VON_NEUMANN = 3;
-  private final int RANDOM = 4;
-
-  private final int TOPOLOGY;
+  Neighborhood(Paricle[] neighbors){
+    this.neighbors = neighbors;
+    nBestValue = neighbors[0].getPBest();
+    for(int i = 0; i < neighbors.length; i++){
+      if(neighbors[i].getPBestValue() < nBestValue){
+        nBestValue = neighbors[i].getPBestValue();
+        nBestLoc = neighbors[i].getPBestLoc();
+      }
+    }
+  }
 
   Neighborhood(int topology, double[][] swarmLoc, double[] swarmPBest, double[][] swarmPBestLoc, int p){
     TOPOLOGY = topology;
@@ -23,22 +27,21 @@ public class Neighborhood {
       if(swarmPBest[i] < nBest){
         nBest = swarmPBest[i];
         nBestLoc = swarmPBestLoc[i].clone();
-
       }
     }
   }
 
-  public void updateNBest(double[][] swarmLoc, double[] swarmPBest, double[][] swarmPBestLoc){
-    for(int i = 0; i < neighborIndex.length; i++){
-      if(swarmPBest[neighborIndex[i]] < nBest){
-        nBest = swarmPBest[i];
-        nBestLoc = swarmPBestLoc[i].clone();
+  public void updateNBest(){
+    for(int i = 0; i < neighbors.length; i++){
+      if(neighbors[i].getPBestValue() < nBestValue){
+        nBestValue = neighbors[i].getPBestValue();
+        nBestLoc = neighbors[i].getPBestLoc();
       }
     }
   }
 
-  public double getNBest(){
-    return nBest;
+  public double getNBestValue(){
+    return nBestValue;
   }
 
   public double[] getNBestLoc(){
