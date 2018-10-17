@@ -20,23 +20,27 @@ public class Main {
             numDimensions = Integer.parseInt(args[4]);
         }
         catch (NumberFormatException e) {
+            System.out.println("Error thrown");
             System.out.println(messageError);
             return;
         }
-        if (swarmSize < 0 || numIterations < 0 || numDimensions < 1) {
-            System.out.println(messageError);
-            return;
-        }
-        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra"))) {
-            System.out.println(messageError);
-            return;
-        }
-        if (! (functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras"))) {
-            System.out.println(messageError);
-            return;
-        }
+//        if (swarmSize < 0 || numIterations < 0 || numDimensions < 1) {
+//            System.out.println(messageError);
+//            return;
+//        }
+//        if (! (topology.equals("gl") || topology.equals("ri") || topology.equals("vn") || topology.equals("ra"))) {
+//            System.out.println(messageError);
+//            return;
+//        }
+//        if (! (functionName.equals("sp") || functionName.equals("rok") || functionName.equals("ack") || functionName.equals("ras"))) {
+//            System.out.println(messageError);
+//            return;
+//        }
         BasicPSO pso = new BasicPSO(topology, swarmSize, numIterations, functionName, numDimensions);
-        pso.execute();
+        pso.setup();
+        for (int i = 0; i < numIterations; i++) {
+            pso.draw();
+        }
 
     }
 }

@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a736ae6f-2c09-4ada-9451-353f0f04e451" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/BasicPSO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BasicPSO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/BasicPSO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BasicPSO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/pso-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/pso-1.0-SNAPSHOT.jar" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -18,23 +22,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BasicPSO.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BasicPSO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/BasicPSO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="138" column="25" selection-start-line="138" selection-start-column="25" selection-end-line="138" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#8802#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="267">
+              <caret line="231" column="7" lean-forward="true" selection-start-line="231" selection-start-column="7" selection-end-line="231" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="-32">
+              <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -65,6 +66,7 @@
         <option value="$PROJECT_DIR$/src/main/java/Point.java" />
         <option value="$PROJECT_DIR$/src/main/java/Vector.java" />
         <option value="$PROJECT_DIR$/src/main/java/Particle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/BasicPSO2.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/BasicPSO.java" />
       </list>
@@ -155,6 +157,9 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
     </key>
@@ -229,7 +234,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7402000" />
+    <option name="totallyTimeSpent" value="8570000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
@@ -414,8 +419,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/BasicPSO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="138" column="25" selection-start-line="138" selection-start-column="25" selection-end-line="138" selection-end-column="25" />
+        <state relative-caret-position="1069">
+          <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="268" selection-end-column="3" />
           <folding>
             <element signature="e#0#8802#0" expanded="true" />
           </folding>
@@ -424,8 +429,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+        <state relative-caret-position="-32">
+          <caret line="9" column="11" lean-forward="true" selection-start-line="9" selection-start-column="11" selection-end-line="9" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/BasicPSO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="231" column="7" lean-forward="true" selection-start-line="231" selection-start-column="7" selection-end-line="231" selection-end-column="7" />
         </state>
       </provider>
     </entry>

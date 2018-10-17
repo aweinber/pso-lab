@@ -9,6 +9,7 @@
 
 // for random numbers
 import java.util.Random;
+import java.util.Arrays;
 
 
 public class BasicPSO {
@@ -16,6 +17,13 @@ public class BasicPSO {
   // ****************  GRAPHICS  ******************
   // window dimensions
   private final int WINDOW_WIDTH = 1000;
+  private final int WINDOW_HEIGHT = WINDOW_WIDTH;
+
+  // make background black
+  private final int BACKGROUND_ALPHA = 0;
+
+  // adjust for personal preference
+  private final int PARTICLE_SIZE = 10;
 
 
   // ****************  MISCELLANEOUS    ******************
@@ -26,6 +34,19 @@ public class BasicPSO {
 
   // ****************  PSO  ******************
 
+  // x and y positions for each particle
+  private double[][] loc;
+
+  // x and y velocities for each particle
+  private double[][] vel;
+
+  // pBest positions and values for each particle
+  private double[][] pBestLoc;
+  private double[] pBestValue;
+
+  // gbest position and value
+  private double[] gBestLoc;
+  private double gBestValue;
 
   // initial speed range
   private final double MIN_INIT_SPEED = -3.0;
@@ -46,25 +67,10 @@ public class BasicPSO {
   // ******************************************************************************************
 
   // number of particles in the swarm
-  private int numParticles;
+  private int numParticles = 100;
 
   // number of dimensions
-  private int numDimensions;
-
-
-//  // x and y positions for each particle
-  private double[][] loc;
-
-//  // x and y velocities for each particle
-  private double[][] vel;
-
-  // pBest positions and values for each particle
-  private double[][] pBestLoc = new double[numParticles][numDimensions];
-  private double[] pBestValue;
-
-  // gBest position and value
-  private double[] gBestLoc = new double[numDimensions];
-  private double gBestValue;
+  private int numDimensions = 2;
 
   // personal best acceleration coefficient
   private double phi1 = 2.05;
@@ -73,7 +79,7 @@ public class BasicPSO {
 
   // constriction factor
   private double phi = phi1 + phi2;
-  private double constrictionFactor = 0.7298;
+  public   double constrictionFactor = 0.7298;
 
   //topology types
   private final int GLOBAL = 1;
@@ -84,21 +90,22 @@ public class BasicPSO {
   public int topologyType;
 
   // test functions
-  private final int SPHERE_FUNCTION_NUM = 0;
-  private final int ROSENBROCK_FUNCTION_NUM = 1;
-  private final int ACKLEY_FUNCTION_NUM = 2;
-  private final int RASTRIGIN_FUNCTION_NUM = 3;
+  private final int SPHERE_FUNCTION_NUM = 1;
+  private final int ROSENBROCK_FUNCTION_NUM = 2;
+  private final int ACKLEY_FUNCTION_NUM = 3;
+  private final int RASTRIGIN_FUNCTION_NUM = 4;
+  private final int GRIEWANK_FUNCTION_NUM = 5;
 
   // which one to
-  public int testFunction;
+  public int testFunction = SPHERE_FUNCTION_NUM;
 
   // for controlling termination
-  private int maxIterations;
+  private int iterationNum = 0;
+  private int maxIterations = 100;
 
 
   BasicPSO(String topology, int swarmSize, int numIterations, String function, int numDimensions) {
     //set topology type
-
     if (topology.equals("gl")) {
       this.topologyType = GLOBAL;
     }
@@ -111,10 +118,8 @@ public class BasicPSO {
     if (topology.equals("ra")) {
       this.topologyType = RANDOM;
     }
-
     this.numParticles = swarmSize;
     this.numDimensions = numDimensions;
-
     //set function num
     if (function.equals("sp")) {
       this.testFunction = SPHERE_FUNCTION_NUM;
@@ -128,22 +133,13 @@ public class BasicPSO {
     if (function.equals("ras")) {
       this.testFunction = RASTRIGIN_FUNCTION_NUM;
     }
-
     this.maxIterations = numIterations;
-
-  }
-
-  public void execute() {
-    this.initialize();
-    for (int i = 0; i < maxIterations; i++) {
-      this.iterateOnce();
-      System.out.println("iteration " + i + "  gbest value = " + gBestValue);
-    }
   }
 
 
   // initialize the simulation
-  public void initialize() {
+  public void setup() {
+
 
 
     // create arrays for particle positions
@@ -153,8 +149,8 @@ public class BasicPSO {
     vel = new double[numParticles][numDimensions];
 
     // create arrays for particle personal bests
-    pBestLoc = new double[numParticles][numDimensions];
     pBestValue = new double[numParticles];
+    pBestLoc = new double[numParticles][numDimensions];
 
     // set gbest value very high so it will be replaced in the loop
     // that creates the particles
@@ -174,18 +170,18 @@ public class BasicPSO {
         // initialize velocities
         vel[p][d] = MIN_INIT_SPEED + rand.nextDouble() * (MAX_INIT_SPEED - MIN_INIT_SPEED);
       }
+
       // initial value
       double currValue = eval(testFunction, loc[p]);
 
       // ****** store initial personal best in the pBest arrays provided
-      pBestLoc[p] = loc[p];
+      pBestLoc[p] = loc[p].clone();
       pBestValue[p] = currValue;
 
-      //TODO: shouldn't we be checking that currValue > gBest, not less than
       // ****** check for new global best and store, if necessary,
       // ****** in the variables provided
       if (currValue < gBestValue) {
-        gBestLoc = loc[p];
+        gBestLoc = loc[p].clone();
         gBestValue = currValue;
 
       }
@@ -194,7 +190,9 @@ public class BasicPSO {
 
 
   // the "loop forever" method in Processing
-  public void iterateOnce() {
+  public void draw() {
+
+    iterationNum++;
 
     // update all the particles
     for (int p = 0 ; p < numParticles ; p++) {
@@ -221,19 +219,19 @@ public class BasicPSO {
       // ****** find the value of the new position
       double currValue = eval(testFunction, loc[p]);
 
-      //TODO: this is saying if curr is less than pBest -- should be more, no?
+
       // ****** update personal best and global best, if necessary
       if (currValue < pBestValue[p]) {
         pBestValue[p] = currValue;
-        pBestLoc[p] = loc[p];
+        pBestLoc[p] = loc[p].clone();
 
         if (currValue < gBestValue) {
           gBestValue = currValue;
-          gBestLoc = loc[p];
+          gBestLoc = loc[p].clone();
         }
       }
     }
-
+     System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
   }
 
 
@@ -255,6 +253,7 @@ public class BasicPSO {
 
   // returns the distance between (x1, y1) and (x2, y2)
   public double distance (double x1, double y1, double x2, double y2) {
+
     return Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
   }
 
@@ -270,11 +269,12 @@ public class BasicPSO {
 
 
 
-  // returns the value of the specified function for point [x1, x2, ..., xn]
+  // returns the value of the specified function for point (x, y)
   public double eval(int functionNum, double[] x) {
-    for (int d = 0; d < numDimensions; d++) {
-      x[d] -= FUNCTION_SHIFT;
-    }
+
+    //for (int d = 0; d < numDimensions; d++) {
+    //  x[d] -= FUNCTION_SHIFT;
+    //}
 
     double retValue = 0.0;
 
@@ -291,6 +291,7 @@ public class BasicPSO {
       retValue = evalAckley(x);
     }
 
+
     return retValue;
   }
 
@@ -305,7 +306,6 @@ public class BasicPSO {
     }
     return sum;
   }
-
 
 
 
@@ -346,19 +346,13 @@ public class BasicPSO {
     double secondCounter = 0;
     for (double i : dimensionVals) {
       firstCounter += Math.pow(i, 2);
-      secondCounter += Math.cos( 2 * Math.PI * i );
+      secondCounter += Math.cos(2 * Math.PI * i);
     }
-    double firstExp = -.2 * Math.sqrt( (1 / dimensionVals.length) * firstCounter );
+    double firstExp = -.2 * Math.sqrt((1 / dimensionVals.length) * firstCounter);
     double secondExp = (1 / dimensionVals.length) * secondCounter;
     return 20 * Math.exp(firstExp) - Math.exp(secondExp) + 20 + Math.E;
 
   }
-
-
-
-
-
-
 
 
 }
