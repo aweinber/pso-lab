@@ -66,10 +66,10 @@ public class BasicPSO {
   // ******************************************************************************************
 
   // number of particles in the swarm
-  private int numParticles = 100;
+  private int numParticles;
 
   // number of dimensions
-  private int numDimensions = 2;
+  private int numDimensions;
 
   // personal best acceleration coefficient
   private double phi1 = 2.05;
@@ -80,20 +80,64 @@ public class BasicPSO {
   private double phi = phi1 + phi2;
   public   double constrictionFactor = 0.7298;
 
+  //topology types
+  private final int GLOBAL = 1;
+  private final int RING = 2;
+  private final int VON_NEUMANN = 3;
+  private final int RANDOM = 4;
+
+  public int topologyType;
+
   // test functions
-  private final int SPHERE_FUNCTION_NUM = 1;
-  private final int ROSENBROCK_FUNCTION_NUM = 2;
-  private final int ACKLEY_FUNCTION_NUM = 3;
-  private final int RASTRIGIN_FUNCTION_NUM = 4;
-  private final int GRIEWANK_FUNCTION_NUM = 5;
+  private final int SPHERE_FUNCTION_NUM = 0;
+  private final int ROSENBROCK_FUNCTION_NUM = 1;
+  private final int ACKLEY_FUNCTION_NUM = 2;
+  private final int RASTRIGIN_FUNCTION_NUM = 3;
 
   // which one to
-  public int testFunction = SPHERE_FUNCTION_NUM;
+  public int testFunction;
 
   // for controlling termination
   private int iterationNum = 0;
-  private int maxIterations = 100;
+  private int maxIterations;
 
+
+  BasicPSO(String topology, int swarmSize, int numIterations, String function, int numDimensions) {
+    //set topology type
+
+    if (topology.equals("gl")) {
+      this.topologyType = GLOBAL;
+    }
+    if (topology.equals("ri")) {
+      this.topologyType = RING;
+    }
+    if (topology.equals("vn")) {
+      this.topologyType = VON_NEUMANN;
+    }
+    if (topology.equals("ra")) {
+      this.topologyType = RANDOM;
+    }
+
+    this.numParticles = swarmSize;
+    this.numDimensions = numDimensions;
+
+    //set function num
+    if (function.equals("sp")) {
+      this.testFunction = SPHERE_FUNCTION_NUM;
+    }
+    if (function.equals("rok")) {
+      this.testFunction = ROSENBROCK_FUNCTION_NUM;
+    }
+    if (function.equals("ack")) {
+      this.testFunction = ACKLEY_FUNCTION_NUM;
+    }
+    if (function.equals("ras")) {
+      this.testFunction = RASTRIGIN_FUNCTION_NUM;
+    }
+
+    this.maxIterations = numIterations;
+
+  }
 
   // initialize the simulation
   public void setup() {
@@ -242,9 +286,6 @@ public class BasicPSO {
     else if (functionNum == ACKLEY_FUNCTION_NUM) {
       retValue = evalAckley(x[0], 0);
     }
-    else if (functionNum == GRIEWANK_FUNCTION_NUM) {
-      retValue = evalGriewank(x[0], 0);
-    }
 
     return retValue;
   }
@@ -266,9 +307,14 @@ public class BasicPSO {
 
   // returns the value of the Rosenbrock Function at point (x, y)
   //   minimum is 0.0, which occurs at (1.0,...,1.0)
-  public double evalRosenbrock (double x, double y) {
+  public double evalRosenbrock (double[] dimensionVals) {
 
-    return 100.0 * Math.pow(y - x*x, 2.0) + Math.pow(x-1.0, 2.0);
+    double counter = 0;
+    for (int i = 0; i < dimensionVals.length - 1; i++) {
+      counter += 100 * Math.pow((dimensionVals[i + 1] - dimensionVals[i]), 2) +
+              Math.pow((dimensionVals[i] - 1), 2);
+    }
+    return counter;
   }
 
 
@@ -276,13 +322,14 @@ public class BasicPSO {
 
   // returns the value of the Rastrigin Function at point (x, y)
   //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  public double evalRastrigin (double x, double y) {
+  public double evalRastrigin (double[] dimensionVals) {
 
-    double retVal = 0;
-    retVal += x*x - 10.0*Math.cos(2.0*Math.PI*x) + 10.0;
-    retVal += y*y - 10.0*Math.cos(2.0*Math.PI*y) + 10.0;
+    double counter = 0;
+    for (double i : dimensionVals) {
+      counter += Math.pow(i, 2) - (10 * Math.cos(2 * Math.PI * i));
+    }
+    return counter;
 
-    return retVal;
   }
 
 
@@ -290,27 +337,23 @@ public class BasicPSO {
 
   // returns the value of the Ackley Function at point (x, y)
   //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  public double evalAckley (double x, double y) {
+  private double evalAckley (double[] dimensionVals) {
+    double firstCounter = 0;
+    double secondCounter = 0;
+    for (double i : dimensionVals) {
+      firstCounter += Math.pow(i, 2);
+      secondCounter += Math.cos( 2 * Math.PI * i );
+    }
+    double firstExp = -.2 * Math.sqrt( (1 / dimensionVals.length) * firstCounter );
+    double secondExp = (1 / dimensionVals.length) * secondCounter;
+    return 20 * Math.exp(firstExp) - Math.exp(secondExp) + 20 + Math.E;
 
-    double firstSum = x*x + y*y;
-    double secondSum = Math.cos(2.0*Math.PI*x) + Math.cos(2.0*Math.PI*y);
-
-    return -20.0 * Math.exp(-0.2 * Math.sqrt(firstSum/2.0)) -
-      Math.exp(secondSum/2.0) + 20.0 + Math.E;
   }
 
 
 
 
-  // returns the value of the Griewank function at point (x, y)
-  //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  public double evalGriewank (double x, double y) {
 
-    double sumSquares = x*x + y*y;
-    double productCos = Math.cos(x/Math.sqrt(1)) * Math.cos(y/Math.sqrt(2));
-
-    return sumSquares/4000.0 - productCos + 1.0;
-  }
 
 
 
