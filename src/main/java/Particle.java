@@ -1,6 +1,7 @@
 public class Particle {
 
     Neighborhood neighborhood;
+    Point nbest;
     Point pBest;
     Point location;
     Vector vector;
