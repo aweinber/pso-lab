@@ -49,6 +49,8 @@ public class Swarm {
     }
 
 
-    private Particle findNearestParticle
+    private Particle findNearestParticle(Particle p, HashSet<Particle> remainingP) {
+
+    }
 
 }

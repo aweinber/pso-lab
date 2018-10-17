@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a736ae6f-2c09-4ada-9451-353f0f04e451" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Neighborhood.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Particle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Swarm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/BasicPSO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BasicPSO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BasicPSO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/BasicPSO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Particle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Swarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swarm.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,25 +28,10 @@
       <file leaf-file-name="Swarm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Swarm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="60">
+              <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
               <folding>
                 <element signature="e#809#819#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Neighborhood.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Neighborhood.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-              <folding>
-                <element signature="e#149#150#0" expanded="true" />
-                <element signature="e#191#192#0" expanded="true" />
-                <element signature="e#263#264#0" expanded="true" />
-                <element signature="e#292#293#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,8 +40,8 @@
       <file leaf-file-name="Particle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Particle.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
+            <state relative-caret-position="120">
+              <caret line="8" column="95" selection-start-line="8" selection-start-column="95" selection-end-line="8" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -100,12 +79,12 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/Point.java" />
         <option value="$PROJECT_DIR$/src/main/java/Vector.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Particle.java" />
         <option value="$PROJECT_DIR$/src/main/java/BasicPSO2.java" />
         <option value="$PROJECT_DIR$/src/main/java/BasicPSO.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neighborhood.java" />
         <option value="$PROJECT_DIR$/src/main/java/Swarm.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Particle.java" />
       </list>
     </option>
   </component>
@@ -271,7 +250,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13458000" />
+    <option name="totallyTimeSpent" value="14110000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
@@ -287,10 +266,10 @@
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32941177" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.32941177" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.32941177" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23424879" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23424879" />
       <window_info anchor="right" id="Database" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -464,13 +443,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Particle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" lean-forward="true" selection-start-column="23" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Neighborhood.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -484,10 +456,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Particle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="95" selection-start-line="8" selection-start-column="95" selection-end-line="8" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Swarm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="45" lean-forward="true" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="60">
+          <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
           <folding>
             <element signature="e#809#819#0" expanded="true" />
           </folding>
