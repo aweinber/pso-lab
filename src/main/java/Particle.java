@@ -12,4 +12,20 @@ public class Particle {
         this.pBest = pBest;
         this.pBestLocation = pBestLocation;
     }
+
+    public double getPBest() {
+        return pBest;
+    }
+
+    public void setpBest(double pBest) {
+        this.pBest = pBest;
+    }
+
+    public double[] getPBestLocation() {
+        return pBestLocation;
+    }
+
+    public void setpBestLocation(double[] pBestLocation) {
+        this.pBestLocation = pBestLocation;
+    }
 }

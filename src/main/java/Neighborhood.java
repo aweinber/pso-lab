@@ -3,43 +3,32 @@ import java.util.Arrays;
 
 
 public class Neighborhood {
-  private int[] neighborIndex;
-//  private Particle[] particles;
-  private double nBest;
+  public Particle[] neighbors;
+  private double nBestValue;
   private double[] nBestLoc;
 
-  private final int GLOBAL = 1;
-  private final int RING = 2;
-  private final int VON_NEUMANN = 3;
-  private final int RANDOM = 4;
-
-  private final int TOPOLOGY;
-
-  Neighborhood(int topology, double[][] swarmLoc, double[] swarmPBest, double[][] swarmPBestLoc, int p){
-    TOPOLOGY = topology;
-    nBest = swarmPBest[0];
-    neighborIndex = new int[swarmPBest.length];
-    for(int i = 0; i < swarmPBest.length; i++){
-      neighborIndex[i] = i;
-      if(swarmPBest[i] < nBest){
-        nBest = swarmPBest[i];
-        nBestLoc = swarmPBestLoc[i].clone();
-
+  Neighborhood(Particle[] neighbors){
+    this.neighbors = neighbors;
+    nBestValue = neighbors[0].getPBest();
+    for(int i = 0; i < neighbors.length; i++){
+      if(neighbors[i].getPBest() < nBestValue){
+        nBestValue = neighbors[i].getPBest();
+        nBestLoc = neighbors[i].getPBestLocation();
       }
     }
   }
 
-  public void updateNBest(double[][] swarmLoc, double[] swarmPBest, double[][] swarmPBestLoc){
-    for(int i = 0; i < neighborIndex.length; i++){
-      if(swarmPBest[neighborIndex[i]] < nBest){
-        nBest = swarmPBest[i];
-        nBestLoc = swarmPBestLoc[i].clone();
+  public void updateNBest(){
+    for(int i = 0; i < neighbors.length; i++){
+      if(neighbors[i].getPBest() < nBestValue){
+        nBestValue = neighbors[i].getPBest();
+        nBestLoc = neighbors[i].getPBestLocation();
       }
     }
   }
 
-  public double getNBest(){
-    return nBest;
+  public double getNBestValue(){
+    return nBestValue;
   }
 
   public double[] getNBestLoc(){
