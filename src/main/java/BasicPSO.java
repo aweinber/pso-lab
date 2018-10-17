@@ -44,6 +44,8 @@ public class BasicPSO {
   private double[][] pBestLoc;
   private double[] pBestValue;
 
+  private Neighborhood[] neighborhoods;
+
   // gbest position and value
   private double[] gBestLoc;
   private double gBestValue;
@@ -152,9 +154,12 @@ public class BasicPSO {
     pBestValue = new double[numParticles];
     pBestLoc = new double[numParticles][numDimensions];
 
+    neighborhoods = new Neighborhood[numParticles];
+
     // set gbest value very high so it will be replaced in the loop
     // that creates the particles
     gBestValue = Double.MAX_VALUE;
+    gBestLoc = new double[numDimensions];
 
     // create particles and calculate initial personal bests;
     // find the initial global best
@@ -186,6 +191,9 @@ public class BasicPSO {
 
       }
     }
+    for (int p = 0; p < numParticles; p++){
+      neighborhoods[p] = new Neighborhood(this.topologyType, loc, pBestValue, pBestLoc, p);
+    }
   }
 
 
@@ -194,8 +202,13 @@ public class BasicPSO {
 
     iterationNum++;
 
+    for (int p = 0; p < numParticles; p++){
+      neighborhoods[p].updateNBest(loc, pBestValue, pBestLoc);
+    }
+
     // update all the particles
     for (int p = 0 ; p < numParticles ; p++) {
+
       for (int d = 0; d < numDimensions; d++) {
         // ****** compute the acceleration due to personal best
         double PBestAttract = pBestLoc[p][d] - loc[p][d];
@@ -203,7 +216,7 @@ public class BasicPSO {
         PBestAttract *= rand.nextDouble() * phi1;
 
         // ****** compute the acceleration due to global best
-        double GBestAttract = gBestLoc[d] - loc[p][d];
+        double GBestAttract = neighborhoods[p].getNBestLoc()[d] - loc[p][d];
 
         GBestAttract *= rand.nextDouble() * phi2;
 
@@ -224,11 +237,12 @@ public class BasicPSO {
       if (currValue < pBestValue[p]) {
         pBestValue[p] = currValue;
         pBestLoc[p] = loc[p].clone();
-
-        if (currValue < gBestValue) {
-          gBestValue = currValue;
-          gBestLoc = loc[p].clone();
-        }
+      }
+    }
+    for(int i = 0; i < neighborhoods.length; i++){
+      if(neighborhoods[i].getNBest()<gBestValue){
+        gBestValue = neighborhoods[i].getNBest();
+        gBestLoc = neighborhoods[i].getNBestLoc().clone();
       }
     }
      System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
