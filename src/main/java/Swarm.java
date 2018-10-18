@@ -119,7 +119,7 @@ public class Swarm {
         secondLooped[0] = this.particles[this.particles.length - 2];
         secondLooped[1] = this.particles[this.particles.length - 1];
         secondLooped[2] = this.particles[0];
-        neighborhoodDict.put(this.particles[this.particles.length], new Neighborhood(secondLooped));
+        neighborhoodDict.put(this.particles[this.particles.length - 1], new Neighborhood(secondLooped));
 
     }
 

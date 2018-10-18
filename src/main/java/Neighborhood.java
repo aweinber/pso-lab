@@ -17,13 +17,16 @@ public class Neighborhood {
   }
 
   public void updateNBest() {
-
+//    double best = this.nBestValue;
+    System.out.println("Update nBest: " + neighbors);
     for(int i = 0; i < neighbors.length; i++){
-      if(neighbors[i].getPBestValue() < nBestValue){
+      if(neighbors[i].getPBestValue() < this.nBestValue){
         nBestValue = neighbors[i].getPBestValue();
-        nBestLoc = neighbors[i].getPBestLocation();
+//        nBestLoc = neighbors[i].getPBestLocation();
       }
     }
+    System.out.println("new nBest: " + this.nBestValue);
+
   }
 
   public double getNBestValue(){
