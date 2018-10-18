@@ -37,6 +37,11 @@ public class Main {
 
     }
 
+    /**
+     * Ensure that inputs are valid.
+     * @param args user parameters
+     * @return whether or not we have a valid set of inputs.
+     */
     private static boolean areValidArgs(String[] args) {
         if (args.length != 5) {
             System.out.println("Arg.lengths != 5, == " + args.length);
@@ -69,6 +74,9 @@ public class Main {
         return true;
     }
 
+    /**
+     * Test function for Rastrigin.
+     */
     public static void testRastrigin() {
         // returns the value of the Rastrigin Function at point (x, y)
         //   minimum is 0.0, which occurs at (0.0,...,0.0)
@@ -89,6 +97,9 @@ public class Main {
 
     }
 
+    /**
+     * Test function for Rosenbrock.
+     */
     public static void testRosenbrock() {
     // returns the value of the Rosenbrock Function at point (x, y)
     //   minimum is 0.0, which occurs at (1.0,...,1.0)
@@ -107,11 +118,11 @@ public class Main {
             System.out.println("New counter: " + counter);
         }
         System.out.println("Rosenbrock counter = " + counter);
-
     }
 
-    // returns the value of the Ackley Function at point (x, y)
-    //   minimum is 0.0, which occurs at (0.0,...,0.0)
+    /**
+     * Test the Ackley function.
+     */
     private static void testAckley() {
         double newVal = (Math.PI / 2.0);
         System.out.println("Newval: " + newVal + " expected ans: " + 7.04);
@@ -137,23 +148,9 @@ public class Main {
         firstExp = Math.sqrt(firstExp);
         firstExp = -b * firstExp;
 
-
-
         secondExp = secondExp * (1.0 / dimensionVals.length);
 
-
         double ans = (-a * Math.exp(firstExp)) - Math.exp(secondExp) + a + Math.E;
-
-//        double firstCounter = 0;
-//        double secondCounter = 0;
-//        for (double i : dimensionVals) {
-//            firstCounter += Math.pow(i, 2);
-//            secondCounter += Math.cos(2 * Math.PI * i);
-//        }
-//        double firstExp = -b * Math.sqrt((1 / dimensionVals.length) * firstCounter);
-//        double secondExp = (1 / dimensionVals.length) * secondCounter;
-
-//        double ans = -a * Math.exp(firstExp) - Math.exp(secondExp) + a + Math.E;
 
         System.out.println("Answer: " + ans);
 

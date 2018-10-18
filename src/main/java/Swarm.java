@@ -9,7 +9,7 @@ public class Swarm {
     private double gBestValue;
 
     /**
-     * Global best location
+     * Global best location. Not necessary to program but useful if we want it.
      */
     private double[] gBestLocation;
 

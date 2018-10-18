@@ -70,7 +70,7 @@ public class Particle {
                 location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16));
             }
         }
-        else if(function.equals("ros")) {
+        else if(function.equals("rok")) {
             for (int d = 0; d < numDimensions; d++) {
                 location[d] = Math.pow(-1, rand.nextInt(2))*(15 + rand.nextDouble() * (30 - 15));
             }
@@ -102,7 +102,7 @@ public class Particle {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
         }
-        else if(function.equals("ros")) {
+        else if(function.equals("rok")) {
             for (int d = 0; d < numDimensions; d++) {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 2);
             }
@@ -119,7 +119,7 @@ public class Particle {
         double retValue = 0;
         if (function.equals("sp")) {
             retValue = evalSphere(location);
-        } else if (function.equals("ros")) {
+        } else if (function.equals("rok")) {
             retValue = evalRosenbrock(location);
         } else if (function.equals("ras")) {
               retValue = evalRastrigin(location);
