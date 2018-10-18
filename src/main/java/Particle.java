@@ -46,7 +46,7 @@ public class Particle {
         location = new double[numDimensions];
         if(function.equals("ack")) {
             for (int d = 0; d < numDimensions; d++) {
-                location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16);
+                location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16));
             }
         }
         else if(function.equals("ros")) {

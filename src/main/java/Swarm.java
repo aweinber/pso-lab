@@ -157,7 +157,6 @@ public class Swarm {
                 if (c > particles.length - 1) c = 0; //if bottom row, set new y index to top
                 if (d < 0) d = particles.length - 1; //if leftmost, set new x index to right
 
-
                 neighbors[1] = vnParticles[i][a]; //above
                 neighbors[2] = vnParticles[b][j]; //right
                 neighbors[3] = vnParticles[i][c]; //below
