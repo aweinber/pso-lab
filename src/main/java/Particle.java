@@ -3,27 +3,47 @@ import java.util.Random;
 
 public class Particle {
 
+    /**
+     * Current location
+     */
     double[] location;
-    double[] vector;
 
-    double pBestValue;
-    double[] pBestLocation;
+    /**
+     * Current velocity vector
+     */
+    private double[] vector;
 
-    String function;
-    int numDimensions;
+    /**
+     * Value of particle's personal best location
+     */
+    private double pBestValue;
 
-    // personal best acceleration coefficient
+    /**
+     * Array representation of every dimension in personal best location
+     */
+    private double[] pBestLocation;
+
+    /**
+     * Function on which particle's location will be evaluated
+     */
+    private String function;
+
+    /**
+     * Personal best acceleration coefficient.
+     */
     private double phi1 = 2.05;
-    // global best acceleration coefficient
+
+    /**
+     * Global best acceleration coefficient.
+     */
     private double phi2 = 2.05;
 
     private double phi = phi1 + phi2;
 
-    public  double constrictionFactor = 0.7298;
+    private  double constrictionFactor = 0.7298;
 
     public Particle(String function, int numDimensions){
       this.function = function;
-      this.numDimensions = numDimensions;
       initializeLocation(function, numDimensions);
       initializeVector(function, numDimensions);
       pBestLocation = this.location;
@@ -31,14 +51,11 @@ public class Particle {
     }
 
 
-    public double getPBestValue() {
-        return pBestValue;
-    }
-
-    public double[] getPBestLocation() {
-        return pBestLocation;
-    }
-
+    /**
+     * Initialize the location of the vector
+     * @param function the function that we will minimize.
+     * @param numDimensions number of dimensions to initialize the particle's loc in.
+     */
     private void initializeLocation(String function, int numDimensions){
       Random rand = new Random();
 
@@ -65,6 +82,13 @@ public class Particle {
         }
     }
 
+
+    /**
+     * Initialize a random vector based on the function and the number of
+     * dimensions.
+     * @param function type of function we will evaluate. impacts initialization.
+     * @param numDimensions number of dimensions to initialize the vector in.
+     */
     private void initializeVector(String function, int numDimensions){
         Random rand = new Random();
         vector = new double[numDimensions];
@@ -91,7 +115,7 @@ public class Particle {
     }
 
     // returns the value of the specified function for point (x, y)
-    public double eval() {
+    private double eval() {
         double retValue = 0;
         if (function.equals("sp")) {
             retValue = evalSphere(location);
@@ -109,11 +133,12 @@ public class Particle {
         return retValue;
     }
 
+
     void move(double[] nBestLoc){
 
         Random rand = new Random();
 
-        for (int d = 0; d < numDimensions; d++) {
+        for (int d = 0; d < location.length; d++) {
 
             // ****** compute the acceleration due to personal best
             double PBestAttract = pBestLocation[d] - location[d];
@@ -142,7 +167,7 @@ public class Particle {
     //   minimum is 0.0, which occurs at (0.0,...,0.0)
     public double evalSphere (double[] x) {
       double sum = 0;
-      for (int d = 0; d < numDimensions; d++) {
+      for (int d = 0; d < location.length; d++) {
         sum += (x[d] * x[d]);
       }
       return sum;
@@ -196,15 +221,33 @@ public class Particle {
       firstExp = Math.sqrt(firstExp);
       firstExp = -b * firstExp;
 
-
-
       secondExp = secondExp * (1.0 / dimensionVals.length);
 
-
       return (-a * Math.exp(firstExp)) - Math.exp(secondExp) + a + Math.E;
-
     }
 
+    /**
+     * Getter for personal best value
+     * @return pBestVal
+     */
+    public double getPBestValue() {
+        return pBestValue;
+    }
+
+
+    /**
+     * Getter for personal best location.
+     * @return location array
+     */
+    public double[] getPBestLocation() {
+        return pBestLocation;
+    }
+
+
+    /**
+     * toString
+     * @return string representation of Particle -> its location.
+     */
     public String toString() {
         return Arrays.toString(location);
     }

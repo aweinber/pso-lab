@@ -3,20 +3,51 @@ import java.util.*;
 
 public class Swarm {
 
+    /**
+     * Global best value
+     */
     private double gBestValue;
+
+    /**
+     * Global best location
+     */
     private double[] gBestLocation;
 
+    /**
+     * Particles that comprise swarm
+     */
     private Particle[] particles;
+
+    /**
+     * Mapping of all particles to their neighborhoods
+     */
     private Hashtable<Particle, Neighborhood> neighborhoodDict = new Hashtable<Particle, Neighborhood>();
 
-    //topology types
+    /**
+     * Global neighborhood topology. All particles in each particle's neighborhood.
+     */
     private final int GLOBAL = 1;
+
+    /**
+     * Ring neighborhood topology. Only left and right neighbors in each's neighborhood.
+     */
     private final int RING = 2;
+
+    /**
+     * VN topology. Above, below, to the left, and to the right comprise a particle's
+     * neighborhood.
+     */
     private final int VON_NEUMANN = 3;
+
+    /**
+     * Random topology. Randomly selected particles comprise a particle's neighborhood.
+     */
     private final int RANDOM = 4;
 
-
-    public int topology;
+    /**
+     * Field that represents which topology the swarm uses.
+     */
+    private int topology;
 
 
     /**
@@ -37,7 +68,10 @@ public class Swarm {
 
     }
 
-    public void initializeSwarm() {
+    /**
+     * Creates the neighborhoods required for the swarm to update.
+     */
+    public void initializeNeighborhoods() {
 
         if (topology == GLOBAL) { createGlobalNeighborhood(); }
         if (topology == RING) { createRingNeighborhoods(); }
@@ -45,7 +79,6 @@ public class Swarm {
         if (topology == RANDOM) { createRandomNeighborhoods(); }
 
     }
-
 
 
     /**

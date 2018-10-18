@@ -3,36 +3,60 @@ import java.util.Arrays;
 
 
 public class Neighborhood {
-  public Particle[] neighbors;
-  public double nBestValue;
-  public double[] nBestLoc;
 
+  /**
+   * Array of particles in the neighborhood.
+   */
+  private Particle[] neighbors;
+
+  /**
+   * Neighborhood best value.
+   */
+  private double nBestValue;
+
+  /**
+   * Neighborhood best location.
+   */
+  private double[] nBestLoc;
+
+  /**
+   * Initializes a neighborhood. Sets minimum nBestLoc and nBestVal fields
+   * then calls update() to improve if possible.
+   * @param neighbors Particle array representing the neighbors.
+   */
   Neighborhood(Particle[] neighbors){
     this.neighbors = neighbors;
-
     nBestValue = neighbors[0].getPBestValue();
     nBestLoc = neighbors[0].getPBestLocation();
-
     updateNBest();
   }
 
-  public void updateNBest() {
+  /**
+   * Iterate through the neighborhood and check the particle's values.
+   */
+  void updateNBest() {
 
-    for(int i = 0; i < neighbors.length; i++){
-      if(neighbors[i].getPBestValue() < this.nBestValue){
-        nBestValue = neighbors[i].getPBestValue();
-        nBestLoc = neighbors[i].getPBestLocation();
+    for (Particle particle : neighbors) {
+      if(particle.getPBestValue() < this.nBestValue){
+        nBestValue = particle.getPBestValue();
+        nBestLoc = particle.getPBestLocation();
       }
     }
-
-
   }
 
+
+  /**
+   * Getter
+   * @return neighborhood Best value
+   */
   public double getNBestValue(){
     return nBestValue;
   }
 
-
+  /**
+   * Getter
+   * @return neighborhood best location
+   */
   public double[] getNBestLocation(){
     return nBestLoc;
   }

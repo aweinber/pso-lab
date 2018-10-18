@@ -28,11 +28,11 @@ public class Main {
         }
 
         Swarm s = new Swarm(particles, topology);
-        s.initializeSwarm();
+        s.initializeNeighborhoods();
 
         for (int i = 0; i < numIterations; i++) {
             s.move();
-            System.out.println("Iteration #: " + i + " , global best: " + s.getgBestValue());
+            System.out.println("Iteration #: " + (i+1) + ", global best: " + s.getgBestValue());
         }
 
     }
