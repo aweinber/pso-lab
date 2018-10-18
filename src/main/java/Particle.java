@@ -195,4 +195,8 @@ public class Particle {
 
     }
 
+    public String toString() {
+        return Arrays.toString(location);
+    }
+
 }

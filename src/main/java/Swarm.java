@@ -99,7 +99,7 @@ public class Swarm {
     private void createRingNeighborhoods() {
 
 
-        for (int i = 1; i < particles[0].location.length - 1; i++) {
+        for (int i = 1; i < particles.length - 1; i++) {
             Particle[] neighbors = new Particle[3];
             neighbors[0] = this.particles[i - 1];
             neighbors[1] = this.particles[i];
@@ -121,6 +121,7 @@ public class Swarm {
         secondLooped[2] = this.particles[0];
         neighborhoodDict.put(this.particles[this.particles.length - 1], new Neighborhood(secondLooped));
 
+        System.out.println("Neighborhoods: " + neighborhoodDict);
     }
 
 
@@ -193,11 +194,11 @@ public class Swarm {
    public void move(){
 
 
-
+//       System.out.println("Num particles: " + particles.length);
      for (Particle particle : particles) {
 
          Neighborhood n = neighborhoodDict.get(particle);
-
+//         System.out.println("n: " + Arrays.toString(n.neighbors));
          n.updateNBest();
 
          particle.move(neighborhoodDict.get(particle).getNBestLocation()); //pass on neighborhood best
