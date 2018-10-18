@@ -20,10 +20,18 @@ public class Main {
         numIterations = Integer.parseInt(args[2]);
         functionName = args[3];
         numDimensions = Integer.parseInt(args[4]);
-        Swarm s = new Swarm(topology, functionName, swarmSize, numDimensions);
+
+        Particle[] particles = new Particle[swarmSize];
+
+        for(int i = 0; i < swarmSize; i++){
+            particles[i] = new Particle(functionName, numDimensions);
+        }
+
+        Swarm s = new Swarm(particles, topology);
+        s.initializeSwarm();
+
         for (int i = 0; i < numIterations; i++) {
             s.move();
-
             System.out.println("Iteration #: " + i + " , global best: " + s.getgBestValue());
         }
 

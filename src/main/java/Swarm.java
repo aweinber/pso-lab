@@ -19,35 +19,39 @@ public class Swarm {
     public int topology;
 
 
-    Swarm(String topology, String function, int swarmSize, int numDimensions){
+    /**
+     * Constructor. Given topology type, function, swarmsize, and numDimensions,
+     * create a swarm of particles and their attendant neighborhoods.
+     * @param particles the particles in the swarm
+     * @param topology determines neighborhood inclusion
+     *
+     */
+    Swarm(Particle[] particles, String topology){
 
-        this.particles = new Particle[swarmSize];
+        this.particles = particles;
 
+        if (topology.equals("gl")) { this.topology = GLOBAL; }
+        if (topology.equals("ri")) { this.topology = RING; }
+        if (topology.equals("vn")) { this.topology = VON_NEUMANN; }
+        if (topology.equals("ra")) { this.topology = RANDOM; }
 
-        for(int i = 0; i < swarmSize; i++){
-            particles[i] = new Particle(function, numDimensions);
-        }
+    }
 
+    public void initializeSwarm() {
 
+        if (topology == GLOBAL) { createGlobalNeighborhood(); }
+        if (topology == RING) { createRingNeighborhoods(); }
+        if (topology == VON_NEUMANN) { createVonNeumannNeighborhoods(); }
+        if (topology == RANDOM) { createRandomNeighborhoods(); }
 
-        if (topology.equals("gl")) {
-            createGlobalNeighborhood();
-        }
-
-        if (topology.equals("ri")) {
-            createRingNeighborhoods();
-        }
-
-        if (topology.equals("vn")) {
-            createVonNeumannNeighborhoods();
-        }
-
-        if (topology.equals("ra")) {
-            createRandomNeighborhoods();
-        }
     }
 
 
+
+    /**
+     * Creates neighborhoods such that every particle's neighborhood is
+     * every other neighborhood.
+     */
     private void createGlobalNeighborhood() {
         Neighborhood neighborhood = new Neighborhood(this.particles);
         for (Particle p : this.particles) {
@@ -56,16 +60,26 @@ public class Swarm {
     }
 
 
+    /**
+     * Creates random neighborhoods for each particle in the swarm.
+     * Saves each in a Hashmap with particle -> neighborhood association.
+     */
     private void createRandomNeighborhoods() {
 
         Neighborhood newN;
-        for (int i = 0; i < particles.length; i++) {
-            newN = createRandomNeighborhood(particles[i]);
-            neighborhoodDict.put(particles[i], newN);
+        for (Particle particle : particles) {
+            newN = createRandomNeighborhood(particle);
+            neighborhoodDict.put(particle, newN);
         }
     }
 
-
+    /**
+     * Creates a random neighborhood of size k and map particle p to it.
+     * Neighborhood cannot include p itself.
+     * TODO: decide what size- why is it 5? parameterize this!
+     * @param p is the particle to build a neighborhood around.
+     * @return the neighborhood.
+     */
     private Neighborhood createRandomNeighborhood(Particle p) {
         int size = 5;
         Particle[] neighbors = new Particle[size];
@@ -85,6 +99,13 @@ public class Swarm {
 
     }
 
+
+    /**
+     * Selects a random particle from the hashset of remaining particles that
+     * can be chosen.
+     * @param remaining a hashset of particles that remain available
+     * @return one such particle
+     */
     private Particle selectRandomParticle(HashSet<Particle> remaining) {
 
         while (true) {
@@ -96,6 +117,12 @@ public class Swarm {
     }
 
 
+    /**
+     * Creates Ring neighborhoods and saves them. Imagines a particle's neighborhood
+     * as the left and right of the particle in an array. Protects against index
+     * out of bounds with special cases where middle particle is at start or
+     * end of the array, to loop around.
+     */
     private void createRingNeighborhoods() {
 
         //only interior particles in array
@@ -121,15 +148,20 @@ public class Swarm {
         secondLooped[2] = this.particles[0];
         neighborhoodDict.put(this.particles[this.particles.length - 1], new Neighborhood(secondLooped));
 
-        System.out.println("Neighborhoods: " + neighborhoodDict);
     }
 
 
+    /**
+     * Creates a von Neumann neighborhood such that every particle
+     * is connected with the particles above, below, to the right,
+     * and to the left of it in an imagined square array.
+     */
     public void createVonNeumannNeighborhoods() {
 
         int numRows = (int) Math.sqrt(particles.length);
         Particle[][] vnParticles = new Particle[numRows][numRows];
 
+        //place particles into square
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numRows; j++) {
                 vnParticles[i][j] = particles[i + (numRows * j)];
@@ -137,6 +169,7 @@ public class Swarm {
         }
 
 
+        //find neighborhood for each particle
         for (int i = 0; i < vnParticles.length; i++) {
 
             for (int j = 0; j < vnParticles[0].length; j++) {
@@ -162,17 +195,15 @@ public class Swarm {
                 neighbors[4] = vnParticles[d][j]; //left
 
                 neighborhoodDict.put(vnParticles[i][j], new Neighborhood(neighbors));
-                System.out.println(neighborhoodDict);
             }
         }
     }
 
     /**
      * Calculates the new global best in the swarm.
-     * Sets new global best value and location
-     * @return new global best value
+     * Sets new global best value and location.
      */
-    private double calculateNewGlobalBest() {
+    private void calculateNewGlobalBest() {
 
         double gBestValue = particles[0].getPBestValue();
         double[] gBestLocation = particles[0].location;
@@ -188,12 +219,13 @@ public class Swarm {
         this.gBestValue = gBestValue;
         this.gBestLocation = gBestLocation;
 
-        return gBestValue;
-
    }
 
     /**
-     * Executes one iteration of the PSO. Gives each particle its neighborhood
+     * Executes one iteration of the PSO. Gives each particle its neighborhood.
+     * For each particle in the swarm, grabs the nBest location and orders the
+     * particle to move (more on that process in the Particle class). Then
+     * calculates new global best.
      */
    public void move(){
 
