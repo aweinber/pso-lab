@@ -98,7 +98,7 @@ public class Swarm {
 
     private void createRingNeighborhoods() {
 
-
+        //only interior particles in array
         for (int i = 1; i < particles.length - 1; i++) {
             Particle[] neighbors = new Particle[3];
             neighbors[0] = this.particles[i - 1];
@@ -137,16 +137,19 @@ public class Swarm {
         }
 
 
-        for (int i = 0; i < particles.length; i++) {
-            for (int j = 0; j < particles.length; j++) {
-                Particle[] neighbors = new Particle[5];
-                int x = i;
-                int y = j;
-                neighbors[0] = vnParticles[x][y];
+        System.out.println("vnArray: " + Arrays.deepToString(vnParticles));
+        for (int i = 0; i < vnParticles.length; i++) {
 
-                int a = j + 1; //above
+            for (int j = 0; j < vnParticles[0].length; j++) {
+
+                Particle[] neighbors = new Particle[5];
+
+
+                neighbors[0] = vnParticles[i][j];
+
+                int a = j - 1; //above
                 int b = i + 1; //right
-                int c = j - 1; //below
+                int c = j + 1; //below
                 int d = i - 1; //left
 
                 if (a < 0) a = particles.length - 1; //if top row, set new y index to bottom
@@ -154,11 +157,14 @@ public class Swarm {
                 if (c > particles.length - 1) c = 0; //if bottom row, set new y index to top
                 if (d < 0) d = particles.length - 1; //if leftmost, set new x index to right
 
-                neighbors[1] = vnParticles[x][a]; //above
+
+                neighbors[1] = vnParticles[i][a]; //above
                 neighbors[2] = vnParticles[b][j]; //right
-                neighbors[3] = vnParticles[x][c]; //below
-                neighbors[4] = vnParticles[d][y]; //left
-                neighborhoodDict.put(vnParticles[x][y], new Neighborhood(neighbors));
+                neighbors[3] = vnParticles[i][c]; //below
+                neighbors[4] = vnParticles[d][j]; //left
+
+                neighborhoodDict.put(vnParticles[i][j], new Neighborhood(neighbors));
+                System.out.println(neighborhoodDict);
             }
         }
     }
