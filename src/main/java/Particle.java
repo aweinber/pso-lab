@@ -1,3 +1,6 @@
+
+import java.util.Random;
+
 public class Particle {
 
     double[] location;
@@ -9,17 +12,25 @@ public class Particle {
     String function;
     int numDimensions;
 
+    // personal best acceleration coefficient
+    private double phi1 = 2.05;
+    // global best acceleration coefficient
+    private double phi2 = 2.05;
+
+    private double phi = phi1 + phi2;
+    public  double constrictionFactor = 0.7298;
+
     public Particle(String function, int numDimensions){
       this.function = function;
       this.numDimensions = numDimensions;
-      this.location = initializeLocation(function, numDimensions);
-      this.vector = initializeVector(function, numDimensions);
+      initializeLocation(function, numDimensions);
+      initializeVector(function, numDimensions);
     }
 
     public Particle(double[] location, double[] vector, double pBest, double[] pBestLocation) {
         this.location = location;
         this.vector = vector;
-        this.pBest = pBest;
+        this.pBestValue = pBestValue;
         this.pBestLocation = pBestLocation;
     }
 
@@ -31,63 +42,68 @@ public class Particle {
         return pBestLocation;
     }
 
-    private double[] initializeLocation(String function, int numDimensions){
+    private void initializeLocation(String function, int numDimensions){
+      Random rand = new Random();
+
         location = new double[numDimensions];
         if(function == "ack")
-            for(int i = 0; i < numDimensions; i++){
+            for(int d = 0; d < numDimensions; d++){
               location[d] = 16 + rand.nextDouble() * (32 - 16);
             }
         else if(function == "ros")
-            for(int i = 0; i < numDimensions; i++){
+            for(int d = 0; d < numDimensions; d++){
               location[d] = 15 + rand.nextDouble() * (30 - 15);
             }
         else if(function == "ras")
-            for(int i = 0; i < numDimensions; i++){
+            for(int d = 0; d < numDimensions; d++){
               location[d] = 2.56 + rand.nextDouble() * (5.12 - 2.56);
             }
     }
 
-    private double[] initializeVector(String function, int numDimensions){
+    private void initializeVector(String function, int numDimensions){
+        Random rand = new Random();
         vector = new double[numDimensions];
         if(function == "ack")
-            for(int i = 0; i < numDimensions; i++){
+            for(int d = 0; d < numDimensions; d++){
               vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
         else if(function == "ros")
-            for(int i = 0; i < numDimensions; i++){
-              location[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
+            for(int d = 0; d < numDimensions; d++){
+              vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
         else if(function == "ras")
-            for(int i = 0; i < numDimensions; i++){
-              location[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
+            for(int d = 0; d < numDimensions; d++){
+              vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
     }
 
     // returns the value of the specified function for point (x, y)
     public void eval() {
-
+      double retValue = 0;
       if (function == "she") {
-        retValue = evalSphere(x);
+        retValue = evalSphere(location);
       }
       else if (function == "ros") {
-        retValue = evalRosenbrock(x);
+        retValue = evalRosenbrock(location);
       }
       else if (function == "ras") {
-        retValue = evalRastrigin(x);
+        retValue = evalRastrigin(location);
       }
       else if (function == "ack") {
-        retValue = evalAckley(x);
+        retValue = evalAckley(location);
       }
       if(retValue < pBestValue){
         pBestValue = retValue;
-        pBestLoc = location.clone();
+        pBestLocation = location.clone();
       }
     }
 
-    public void move(double nBestValue, double nBestLoc){
+    public void move(double[] nBestLoc){
+
+      Random rand = new Random();
       for (int d = 0; d < numDimensions; d++) {
         // ****** compute the acceleration due to personal best
-        double PBestAttract = pBestLoc[d] - location[d];
+        double PBestAttract = pBestLocation[d] - location[d];
 
         PBestAttract *= rand.nextDouble() * phi1;
 
@@ -97,12 +113,12 @@ public class Particle {
         GBestAttract *= rand.nextDouble() * phi2;
 
         // ****** constrict the new velocity and reset the current velocity
-        velocity[d] += PBestAttract + GBestAttract;
+        vector[d] += PBestAttract + GBestAttract;
 
-        velocity[d] *= constrictionFactor;
+        vector[d] *= constrictionFactor;
 
         // ****** update the position
-        location[d] += velocity[d];
+        location[d] += vector[d];
       }
       eval();
     }
