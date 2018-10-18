@@ -137,25 +137,24 @@ public class Swarm {
         }
 
 
-        System.out.println("vnArray: " + Arrays.deepToString(vnParticles));
         for (int i = 0; i < vnParticles.length; i++) {
 
             for (int j = 0; j < vnParticles[0].length; j++) {
 
                 Particle[] neighbors = new Particle[5];
 
-
                 neighbors[0] = vnParticles[i][j];
 
-                int a = j - 1; //above
-                int b = i + 1; //right
-                int c = j + 1; //below
-                int d = i - 1; //left
+                int a = j - 1; //y index of above
+                int b = i + 1; //x index of right
+                int c = j + 1; //y index of below
+                int d = i - 1; //x index of left
 
-                if (a < 0) a = particles.length - 1; //if top row, set new y index to bottom
-                if (b > particles.length - 1) b = 0; //if rightmost, set new x index to left
-                if (c > particles.length - 1) c = 0; //if bottom row, set new y index to top
-                if (d < 0) d = particles.length - 1; //if leftmost, set new x index to right
+                if (a < 0) a = vnParticles.length - 1; //if top row, set new y index to bottom
+                if (b > vnParticles.length - 1) b = 0; //if rightmost, set new x index to left
+                if (c > vnParticles.length - 1) c = 0; //if bottom row, set new y index to top
+                if (d < 0) d = vnParticles.length - 1; //if leftmost, set new x index to right
+
 
                 neighbors[1] = vnParticles[i][a]; //above
                 neighbors[2] = vnParticles[b][j]; //right

@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a736ae6f-2c09-4ada-9451-353f0f04e451" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Particle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Particle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Swarm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Swarm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Particle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Particle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Swarm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Swarm.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -26,11 +27,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Swarm.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Swarm.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Swarm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="157" column="92" selection-start-line="157" selection-start-column="92" selection-end-line="157" selection-end-column="92" />
+            <state relative-caret-position="174">
+              <caret line="138" column="8" selection-start-line="138" selection-start-column="8" selection-end-line="138" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#255#279#0" expanded="true" />
@@ -57,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Particle.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Particle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Particle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="52" column="53" lean-forward="true" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
+              <caret line="52" column="53" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#957#958#0" expanded="true" />
@@ -115,8 +116,8 @@
         <option value="$PROJECT_DIR$/src/main/java/BasicPSO.java" />
         <option value="$PROJECT_DIR$/src/main/java/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/Neighborhood.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Swarm.java" />
         <option value="$PROJECT_DIR$/src/main/java/Particle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Swarm.java" />
       </list>
     </option>
   </component>
@@ -282,7 +283,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29190000" />
+    <option name="totallyTimeSpent" value="29461000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="777" extended-state="6" />
@@ -591,24 +592,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Swarm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="157" column="92" selection-start-line="157" selection-start-column="92" selection-end-line="157" selection-end-column="92" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#255#279#0" expanded="true" />
-            <element signature="e#1829#1839#0" expanded="true" />
-            <element signature="e#6771#6772#0" expanded="true" />
-            <element signature="e#6804#6805#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Particle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="52" column="53" lean-forward="true" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
+          <caret line="52" column="53" selection-start-line="52" selection-start-column="53" selection-end-line="52" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#957#958#0" expanded="true" />
@@ -617,6 +604,20 @@
             <element signature="e#1068#1069#0" expanded="true" />
             <element signature="e#5732#5733#0" expanded="true" />
             <element signature="e#5778#5779#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Swarm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="138" column="8" selection-start-line="138" selection-start-column="8" selection-end-line="138" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#255#279#0" expanded="true" />
+            <element signature="e#1829#1839#0" expanded="true" />
+            <element signature="e#6771#6772#0" expanded="true" />
+            <element signature="e#6804#6805#0" expanded="true" />
           </folding>
         </state>
       </provider>
