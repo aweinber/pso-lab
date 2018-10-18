@@ -15,7 +15,7 @@ public class Neighborhood {
     updateNBest();
   }
 
-  private void updateNBest(){
+  public void updateNBest(){
     for(int i = 0; i < neighbors.length; i++){
       if(neighbors[i].getPBestValue() < nBestValue){
         nBestValue = neighbors[i].getPBestValue();

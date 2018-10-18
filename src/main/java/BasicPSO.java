@@ -115,7 +115,7 @@ public class BasicPSO {
 
   // the "loop forever" method in Processing
   public void draw() {
-    s.move();
+//    s.move();
   }
 
 
@@ -153,99 +153,6 @@ public class BasicPSO {
 
 
 
-  // returns the value of the specified function for point (x, y)
-  public double eval(int functionNum, double[] x) {
-
-    double retValue = 0.0;
-
-    if (functionNum == SPHERE_FUNCTION_NUM) {
-      retValue = evalSphere(x);
-    }
-    else if (functionNum == ROSENBROCK_FUNCTION_NUM) {
-      retValue = evalRosenbrock(x);
-    }
-    else if (functionNum == RASTRIGIN_FUNCTION_NUM) {
-      retValue = evalRastrigin(x);
-    }
-    else if (functionNum == ACKLEY_FUNCTION_NUM) {
-      retValue = evalAckley(x);
-    }
-
-
-    return retValue;
-  }
-
-
-
-  // returns the value of the Sphere function at point (x, y)
-  //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  public double evalSphere (double[] x) {
-    double sum = 0;
-    for (int d = 0; d < numDimensions; d++) {
-      sum += (x[d] * x[d]);
-    }
-    return sum;
-  }
-
-
-
-  // returns the value of the Rosenbrock Function at point (x, y)
-  //   minimum is 0.0, which occurs at (1.0,...,1.0)
-  public double evalRosenbrock (double[] dimensionVals) {
-
-    double counter = 0;
-    for (int i = 0; i < dimensionVals.length - 1; i++) {
-      double leftSide = 100 * Math.pow(dimensionVals[i + 1] - Math.pow(dimensionVals[i], 2), 2);
-      double rightSide = Math.pow(dimensionVals[i] - 1, 2);
-      counter = counter + leftSide + rightSide;
-    }
-    return counter;
-  }
-
-
-  // returns the value of the Rastrigin Function at point (x, y)
-  //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  public double evalRastrigin (double[] dimensionVals) {
-
-
-    double counter = 0;
-    for (double i : dimensionVals) {
-      counter += Math.pow(i, 2) - (10 * Math.cos(2 * Math.PI * i));
-    }
-    return (10 * dimensionVals.length) + counter;
-
-  }
-
-
-
-
-  // returns the value of the Ackley Function at point (x, y)
-  //   minimum is 0.0, which occurs at (0.0,...,0.0)
-  private double evalAckley (double[] dimensionVals) {
-
-    double a = 20.0;
-    double b = .2;
-    double c = 2 * Math.PI;
-
-    double firstExp = 0;
-    double secondExp = 0;
-    for (double i : dimensionVals) {
-      firstExp += Math.pow(i, 2);
-      secondExp += Math.cos(c * i);
-    }
-
-    firstExp = firstExp * (1.0 / dimensionVals.length);
-    firstExp = Math.sqrt(firstExp);
-    firstExp = -b * firstExp;
-
-
-
-    secondExp = secondExp * (1.0 / dimensionVals.length);
-
-
-    return (-a * Math.exp(firstExp)) - Math.exp(secondExp) + a + Math.E;
-
-  }
 
 
 }

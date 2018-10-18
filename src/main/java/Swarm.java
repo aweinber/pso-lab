@@ -22,6 +22,7 @@ public class Swarm {
 
     Swarm(String topology, String function, int swarmSize, int numDimensions){
       this.particles = new Particle[swarmSize];
+
       for(int i = 0; i < swarmSize; i++){
         particles[i] = new Particle(function, numDimensions);
       }
@@ -154,8 +155,12 @@ public class Swarm {
         }
     }
 
-
-   private double calculateNewGlobalBest() {
+    /**
+     * Calculates the new global best in the swarm.
+     * Sets new global best value and location
+     * @return new global best value
+     */
+    private double calculateNewGlobalBest() {
         double gBestValue = neighborhoodDict.get(particles[0]).getNBestValue(); //minimum it could be
         double[] gBestLocation = neighborhoodDict.get(particles[0]).getNBestLocation();
 
@@ -171,7 +176,10 @@ public class Swarm {
         return gBestValue;
    }
 
-   public void search(){
+    /**
+     * Executes one iteration of the PSO. Gives each particle its neighborhood
+     */
+   public void move(){
 
 
      for (Particle particle : particles) {
