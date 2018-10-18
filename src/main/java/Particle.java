@@ -46,17 +46,17 @@ public class Particle {
         location = new double[numDimensions];
         if(function.equals("ack")) {
             for (int d = 0; d < numDimensions; d++) {
-                location[d] = 16 + rand.nextDouble() * (32 - 16);
+                location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16);
             }
         }
         else if(function.equals("ros")) {
             for (int d = 0; d < numDimensions; d++) {
-                location[d] = 15 + rand.nextDouble() * (30 - 15);
+                location[d] = Math.pow(-1, rand.nextInt(2))*(15 + rand.nextDouble() * (30 - 15));
             }
         }
         else if(function.equals("ras")) {
             for (int d = 0; d < numDimensions; d++) {
-                location[d] = 2.56 + rand.nextDouble() * (5.12 - 2.56);
+                location[d] = Math.pow(-1, rand.nextInt(2))*(2.56 + rand.nextDouble() * (5.12 - 2.56));
             }
         }
     }
