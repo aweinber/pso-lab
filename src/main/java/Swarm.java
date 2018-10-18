@@ -40,8 +40,7 @@ public class Swarm {
     }
 
 
-
-    public void createGlobalNeighborhood() {
+    private void createGlobalNeighborhood() {
         Neighborhood neighborhood = new Neighborhood(this.particles);
         for (Particle p : this.particles) {
             neighborhoodDict.put(p,neighborhood);
@@ -49,7 +48,7 @@ public class Swarm {
     }
 
 
-    public Neighborhood[] createRandomNeighborhoods() {
+    private Neighborhood[] createRandomNeighborhoods() {
         Neighborhood[] neighborhoods = new Neighborhood[this.particles.length];
         Neighborhood newN;
         for (int i = 0; i < neighborhoods.length; i++) {
@@ -59,7 +58,8 @@ public class Swarm {
         return neighborhoods;
     }
 
-    public Neighborhood createRandomNeighborhood(Particle p) {
+
+    private Neighborhood createRandomNeighborhood(Particle p) {
         int size = 5;
         Particle[] neighbors = new Particle[size];
         neighbors[0] = p;
@@ -77,7 +77,7 @@ public class Swarm {
 
     }
 
-    public Particle selectRandomParticle(HashSet<Particle> remaining) {
+    private Particle selectRandomParticle(HashSet<Particle> remaining) {
 
         while (true) {
             int randomIndex = (int) (Math.random() * particles.length);
@@ -88,7 +88,7 @@ public class Swarm {
     }
 
 
-    public void createRingNeighborhoods() {
+    private void createRingNeighborhoods() {
 
 
         for (int i = 1; i < particles[0].location.length - 1; i++) {
@@ -155,13 +155,13 @@ public class Swarm {
     }
 
 
-   public double calculateNewGlobalBest() {
+   private double calculateNewGlobalBest() {
         double gBestValue = neighborhoodDict.get(particles[0]).getNBestValue(); //minimum it could be
         double[] gBestLocation = neighborhoodDict.get(particles[0]).getNBestLocation();
 
         for ( Neighborhood n : neighborhoodDict.values() ) {
             n.updateNBest();
-            if (n.getNBestValue() < gBest) {
+            if (n.getNBestValue() < gBestValue) {
                 gBestValue = n.getNBestValue();
                 gBestLocation = n.getNBestLocation();
             }
@@ -171,16 +171,19 @@ public class Swarm {
         return gBestValue;
    }
 
-   public void move(){
-     iterationNum++;
-     Random rand = new Random();
-     for(int i = 0; i < particles.length; i++){
-       particles[i].move(neighborhoodDict.get(particles[i]).getNBestValue(), neighborhoods.get(partices[i]).getNBestLoc());
-       if(topology == RANDOM && rand.nextDouble() < 0.2){
-         neighborhoodDict.put(particles[i], createRandomNeighborhood(particle[i]));
-       }
+   public void search(){
+
+
+     for (Particle particle : particles) {
+
+         particle.move(neighborhoodDict.get(particle).getNBestLocation()); //pass on neighborhood best
+
+         if(topology == RANDOM && Math.random() < 0.2){
+             neighborhoodDict.put(particle, createRandomNeighborhood(particle));
+         }
      }
+
      calculateNewGlobalBest();
-     System.out.println("iteration " + iterationNum + "  gbest value = " + gBestValue);
+
    }
 }
