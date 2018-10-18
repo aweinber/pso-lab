@@ -84,8 +84,9 @@ public class Particle {
       }
     }
 
-    public void move(double nBestValue, double nBestLoc){
-      for (int d = 0; d < numDimensions; d++) {
+    public void move(double[] nBestLoc){
+
+        for (int d = 0; d < numDimensions; d++) {
         // ****** compute the acceleration due to personal best
         double PBestAttract = pBestLoc[d] - location[d];
 
