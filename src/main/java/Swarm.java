@@ -7,7 +7,7 @@ public class Swarm {
     private double[] gBestLocation;
 
     private Particle[] particles;
-    private Hashtable<Particle, Neighborhood> neighborhoodDict;
+    private Hashtable<Particle, Neighborhood> neighborhoodDict = new Hashtable<Particle, Neighborhood>();
 
     //topology types
     private final int GLOBAL = 1;
@@ -44,7 +44,7 @@ public class Swarm {
     private void createGlobalNeighborhood() {
         Neighborhood neighborhood = new Neighborhood(this.particles);
         for (Particle p : this.particles) {
-            neighborhoodDict.put(p,neighborhood);
+            neighborhoodDict.put(p, neighborhood);
         }
     }
 
