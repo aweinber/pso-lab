@@ -23,6 +23,8 @@ public class Main {
         Swarm s = new Swarm(topology, functionName, swarmSize, numDimensions);
         for (int i = 0; i < numIterations; i++) {
             s.move();
+
+            System.out.println("Iteration #: " + i + " , global best: " + s.getgBestValue());
         }
 
     }

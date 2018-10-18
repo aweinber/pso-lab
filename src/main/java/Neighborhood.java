@@ -11,11 +11,13 @@ public class Neighborhood {
     this.neighbors = neighbors;
 
     nBestValue = neighbors[0].getPBestValue();
+    nBestLoc = neighbors[0].getPBestLocation();
 
     updateNBest();
   }
 
-  public void updateNBest(){
+  public void updateNBest() {
+
     for(int i = 0; i < neighbors.length; i++){
       if(neighbors[i].getPBestValue() < nBestValue){
         nBestValue = neighbors[i].getPBestValue();
