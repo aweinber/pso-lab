@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -44,6 +43,11 @@ public class Particle {
       Random rand = new Random();
 
         location = new double[numDimensions];
+        if (function.equals("sp")) {
+            for (int d = 0; d < numDimensions; d++) {
+                location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16));
+            }
+        }
         if(function.equals("ack")) {
             for (int d = 0; d < numDimensions; d++) {
                 location[d] = Math.pow(-1, rand.nextInt(2))*(16 + rand.nextDouble() * (32 - 16));
@@ -64,6 +68,11 @@ public class Particle {
     private void initializeVector(String function, int numDimensions){
         Random rand = new Random();
         vector = new double[numDimensions];
+        if(function.equals("sp")) {
+            for (int d = 0; d < numDimensions; d++) {
+                vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
+            }
+        }
         if(function.equals("ack")) {
             for (int d = 0; d < numDimensions; d++) {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
@@ -71,7 +80,7 @@ public class Particle {
         }
         else if(function.equals("ros")) {
             for (int d = 0; d < numDimensions; d++) {
-                vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
+                vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 2);
             }
         }
         else if(function.equals("ras")) {
@@ -84,7 +93,7 @@ public class Particle {
     // returns the value of the specified function for point (x, y)
     public double eval() {
         double retValue = 0;
-        if (function.equals("she")) {
+        if (function.equals("sp")) {
             retValue = evalSphere(location);
         } else if (function.equals("ros")) {
             retValue = evalRosenbrock(location);
