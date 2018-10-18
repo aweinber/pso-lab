@@ -57,9 +57,9 @@ public class Swarm {
 
 
     private void createRandomNeighborhoods() {
-        Neighborhood[] neighborhoods = new Neighborhood[this.particles.length];
+
         Neighborhood newN;
-        for (int i = 0; i < neighborhoods.length; i++) {
+        for (int i = 0; i < particles.length; i++) {
             newN = createRandomNeighborhood(particles[i]);
             neighborhoodDict.put(particles[i], newN);
         }
@@ -75,6 +75,7 @@ public class Swarm {
         remaining.remove(p);
 
         Particle newP;
+
         for (int i = 1; i < size; i++) {
             newP = selectRandomParticle(remaining);
             neighbors[i] = newP;
@@ -196,12 +197,10 @@ public class Swarm {
      */
    public void move(){
 
-
-//       System.out.println("Num particles: " + particles.length);
      for (Particle particle : particles) {
 
          Neighborhood n = neighborhoodDict.get(particle);
-//         System.out.println("n: " + Arrays.toString(n.neighbors));
+
          n.updateNBest();
 
          particle.move(neighborhoodDict.get(particle).getNBestLocation()); //pass on neighborhood best

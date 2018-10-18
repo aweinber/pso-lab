@@ -64,17 +64,17 @@ public class Particle {
     private void initializeVector(String function, int numDimensions){
         Random rand = new Random();
         vector = new double[numDimensions];
-        if(function == "ack") {
+        if(function.equals("ack")) {
             for (int d = 0; d < numDimensions; d++) {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
         }
-        else if(function == "ros") {
+        else if(function.equals("ros")) {
             for (int d = 0; d < numDimensions; d++) {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
         }
-        else if(function == "ras") {
+        else if(function.equals("ras")) {
             for (int d = 0; d < numDimensions; d++) {
                 vector[d] = -2 + rand.nextDouble() * Math.abs(-2 - 4);
             }
@@ -101,6 +101,7 @@ public class Particle {
     }
 
     void move(double[] nBestLoc){
+
         Random rand = new Random();
 
         for (int d = 0; d < numDimensions; d++) {
