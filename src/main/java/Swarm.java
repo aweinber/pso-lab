@@ -56,14 +56,13 @@ public class Swarm {
     }
 
 
-    private Neighborhood[] createRandomNeighborhoods() {
+    private void createRandomNeighborhoods() {
         Neighborhood[] neighborhoods = new Neighborhood[this.particles.length];
         Neighborhood newN;
         for (int i = 0; i < neighborhoods.length; i++) {
             newN = createRandomNeighborhood(particles[i]);
-            neighborhoods[i] = newN;
+            neighborhoodDict.put(particles[i], newN);
         }
-        return neighborhoods;
     }
 
 

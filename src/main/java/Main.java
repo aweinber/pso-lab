@@ -21,7 +21,7 @@ public class Main {
         functionName = args[3];
         numDimensions = Integer.parseInt(args[4]);
         Swarm s = new Swarm(topology, functionName, swarmSize, numDimensions);
-        for (int i = 0; i < numIterations; i++) {
+        for (int i = 0; i < 2; i++) {
             s.move();
 
             System.out.println("Iteration #: " + i + " , global best: " + s.getgBestValue());
