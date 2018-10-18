@@ -9,19 +9,16 @@ public class Neighborhood {
 
   Neighborhood(Particle[] neighbors){
     this.neighbors = neighbors;
-    nBestValue = neighbors[0].getPBest();
-    for(int i = 0; i < neighbors.length; i++){
-      if(neighbors[i].getPBest() < nBestValue){
-        nBestValue = neighbors[i].getPBest();
-        nBestLoc = neighbors[i].getPBestLocation();
-      }
-    }
+
+    nBestValue = neighbors[0].getPBestValue();
+
+    updateNBest();
   }
 
-  public void updateNBest(){
+  private void updateNBest(){
     for(int i = 0; i < neighbors.length; i++){
-      if(neighbors[i].getPBest() < nBestValue){
-        nBestValue = neighbors[i].getPBest();
+      if(neighbors[i].getPBestValue() < nBestValue){
+        nBestValue = neighbors[i].getPBestValue();
         nBestLoc = neighbors[i].getPBestLocation();
       }
     }
@@ -30,6 +27,7 @@ public class Neighborhood {
   public double getNBestValue(){
     return nBestValue;
   }
+
 
   public double[] getNBestLocation(){
     return nBestLoc;
