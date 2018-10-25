@@ -143,7 +143,7 @@ public class Swarm {
 
         while (true) {
             int randomIndex = (int) (Math.random() * particles.length);
-            if (! remaining.contains(particles[randomIndex])) {
+            if (remaining.contains(particles[randomIndex])) {
                 return particles[randomIndex];
             }
         }
